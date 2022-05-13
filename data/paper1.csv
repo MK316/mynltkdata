@@ -1,0 +1,2897 @@
+﻿id,year,title,event_type,pdf_name,abstract,paper_text
+1,1987,Self-Organization of Associative Database and Its Applications,,1-self-organization-of-associative-database-and-its-applications.pdf,Abstract Missing,"767
+
+SELF-ORGANIZATION OF ASSOCIATIVE DATABASE
+AND ITS APPLICATIONS
+Hisashi Suzuki and Suguru Arimoto
+Osaka University, Toyonaka, Osaka 560, Japan
+ABSTRACT
+An efficient method of self-organizing associative databases is proposed together with
+applications to robot eyesight systems. The proposed databases can associate any input
+with some output. In the first half part of discussion, an algorithm of self-organization is
+proposed. From an aspect of hardware, it produces a new style of neural network. In the
+latter half part, an applicability to handwritten letter recognition and that to an autonomous
+mobile robot system are demonstrated.
+
+INTRODUCTION
+Let a mapping f : X -+ Y be given. Here, X is a finite or infinite set, and Y is another
+finite or infinite set. A learning machine observes any set of pairs (x, y) sampled randomly
+from X x Y. (X x Y means the Cartesian product of X and Y.) And, it computes some
+estimate j : X -+ Y of f to make small, the estimation error in some measure.
+Usually we say that: the faster the decrease of estimation error with increase of the number of samples, the better the learning machine. However, such expression on performance
+is incomplete. Since, it lacks consideration on the candidates of J of j assumed preliminarily. Then, how should we find out good learning machines? To clarify this conception,
+let us discuss for a while on some types of learning machines. And, let us advance the
+understanding of the self-organization of associative database .
+. Parameter Type
+An ordinary type of learning machine assumes an equation relating x's and y's with
+parameters being indefinite, namely, a structure of f. It is equivalent to define implicitly a
+set F of candidates of
+(F is some subset of mappings from X to Y.) And, it computes
+values of the parameters based on the observed samples. We call such type a parameter
+type.
+For a learning machine defined well, if F 3 f, j approaches f as the number of samples
+increases. In the alternative case, however, some estimation error remains eternally. Thus,
+a problem of designing a learning machine returns to find out a proper structure of f in this
+sense.
+On the other hand, the assumed structure of f is demanded to be as compact as possible
+to achieve a fast learning. In other words, the number of parameters should be small. Since,
+if the parameters are few, some j can be uniquely determined even though the observed
+samples are few. However, this demand of being proper contradicts to that of being compact.
+Consequently, in the parameter type, the better the compactness of the assumed structure
+that is proper, the better the learning machine. This is the most elementary conception
+when we design learning machines .
+
+1.
+
+. Universality and Ordinary Neural Networks
+Now suppose that a sufficient knowledge on f is given though J itself is unknown. In
+this case, it is comparatively easy to find out proper and compact structures of J. In the
+alternative case, however, it is sometimes difficult. A possible solution is to give up the
+compactness and assume an almighty structure that can cover various 1's. A combination
+of some orthogonal bases of the infinite dimension is such a structure. Neural networks 1 ,2
+are its approximations obtained by truncating finitely the dimension for implementation.
+
+? American Institute of Physics 1988
+
+768
+A main topic in designing neural networks is to establish such desirable structures of 1.
+This work includes developing practical procedures that compute values of coefficients from
+the observed samples. Such discussions are :flourishing since 1980 while many efficient methods have been proposed. Recently, even hardware units computing coefficients in parallel
+for speed-up are sold, e.g., ANZA, Mark III, Odyssey and E-1.
+Nevertheless, in neural networks, there always exists a danger of some error remaining
+eternally in estimating /. Precisely speaking, suppose that a combination of the bases of a
+finite number can define a structure of 1 essentially. In other words, suppose that F 3 /, or
+1 is located near F. In such case, the estimation error is none or negligible. However, if 1
+is distant from F, the estimation error never becomes negligible. Indeed, many researches
+report that the following situation appears when 1 is too complex. Once the estimation
+error converges to some value (> 0) as the number of samples increases, it decreases hardly
+even though the dimension is heighten. This property sometimes is a considerable defect of
+neural networks .
+. Recursi ve Type
+The recursive type is founded on another methodology of learning that should be as
+follows. At the initial stage of no sample, the set Fa (instead of notation F) of candidates
+of I equals to the set of all mappings from X to Y. After observing the first sample
+(Xl, Yl) E X x Y, Fa is reduced to Fi so that I(xt) = Yl for any I E F. After observing
+the second sample (X2' Y2) E X x Y, Fl is further reduced to F2 so that i(xt) = Yl and
+I(X2) = Y2 for any I E F. Thus, the candidate set F becomes gradually small as observation
+of samples proceeds. The after observing i-samples, which we write
+is one of the most
+likelihood estimation of 1 selected in fi;. Hence, contrarily to the parameter type, the
+recursive type guarantees surely that j approaches to 1 as the number of samples increases.
+The recursive type, if observes a sample (x"" yd, rewrites values 1,-l(X),S to I,(x)'s for
+some x's correlated to the sample. Hence, this type has an architecture composed of a rule
+for rewriting and a free memory space. Such architecture forms naturally a kind of database
+that builds up management systems of data in a self-organizing way. However, this database
+differs from ordinary ones in the following sense. It does not only record the samples already
+observed, but computes some estimation of l(x) for any x E X. We call such database an
+associative database.
+The first subject in constructing associative databases is how we establish the rule for
+rewri ting. For this purpose, we adap t a measure called the dissimilari ty. Here, a dissimilari ty
+means a mapping d : X x X -+ {reals > O} such that for any (x, x) E X x X, d(x, x) > 0
+whenever l(x) t /(x). However, it is not necessarily defined with a single formula. It is
+definable with, for example, a collection of rules written in forms of ""if? .. then?? .. ""
+The dissimilarity d defines a structure of 1 locally in X x Y. Hence, even though
+the knowledge on f is imperfect, we can re:flect it on d in some heuristic way. Hence,
+contrarily to neural networks, it is possible to accelerate the speed of learning by establishing
+d well. Especially, we can easily find out simple d's for those l's which process analogically
+information like a human. (See the applications in this paper.) And, for such /'s, the
+recursive type shows strongly its effectiveness.
+We denote a sequence of observed samples by (Xl, Yd, (X2' Y2),???. One of the simplest
+constructions of associative databases after observing i-samples (i = 1,2,.,,) is as follows.
+
+i
+
+i""
+
+I,
+
+Algorithm 1. At the initial stage, let So be the empty set. For every i =
+1,2"" .. , let i,-l(x) for any x E X equal some y* such that (x*,y*) E S,-l and
+
+d(x, x*) =
+
+min
+(%,y)ES.-t
+
+d(x, x) .
+
+Furthermore, add (x"" y,) to S;-l to produce Sa, i.e., S, = S,_l U {(x""
+
+(1)
+
+y,n.
+
+769
+
+Another version improved to economize the memory is as follows.
+
+Algorithm 2, At the initial stage, let So be composed of an arbitrary element
+in X x Y. For every i = 1,2"""", let ii-lex) for any x E X equal some y. such
+that (x?, y.) E Si-l and
+d(x, x?) =
+
+min
+
+d(x, x) .
+
+(i,i)ES.-l
+
+Furthermore, if ii-l(Xi) # Yi then let Si = Si-l, or add (Xi, Yi) to Si-l to
+produce Si, i.e., Si = Si-l U {(Xi, Yi)}'
+In either construction, ii approaches to f as i increases. However, the computation time
+grows proportionally to the size of Si. The second subject in constructing associative
+databases is what addressing rule we should employ to economize the computation time. In
+the subsequent chapters, a construction of associative database for this purpose is proposed.
+It manages data in a form of binary tree.
+
+SELF-ORGANIZATION OF ASSOCIATIVE DATABASE
+Given a sample sequence (Xl, Yl), (X2' Y2), .. "" the algorithm for constructing associative
+database is as follows.
+
+Algorithm 3,'
+
+Step I(Initialization): Let (x[root], y[root]) = (Xl, Yd. Here, x[.] and y[.] are
+variables assigned for respective nodes to memorize data.. Furthermore, let t = 1.
+Step 2: Increase t by 1, and put x, in. After reset a pointer n to the root, repeat
+the following until n arrives at some terminal node, i.e., leaf.
+Notations nand
+d(xt, x[n)), let n
+
+n mean the descendant nodes of n.
+=n. Otherwise, let n =n.
+
+If d(x"" r[n)) ~
+
+Step 3: Display yIn] as the related information. Next, put y, in. If yIn] = y"" back
+to step 2. Otherwise, first establish new descendant nodes n and n. Secondly,
+let
+
+(x[n], yIn))
+(x[n], yIn))
+
+(x[n], yIn)),
+(Xt, y,).
+
+(2)
+(3)
+
+Finally, back to step 2. Here, the loop of step 2-3 can be stopped at any time
+and also can be continued.
+Now, suppose that gate elements, namely, artificial ""synapses"" that play the role of branching by d are prepared. Then, we obtain a new style of neural network with gate elements
+being randomly connected by this algorithm.
+
+LETTER RECOGNITION
+Recen tly, the vertical slitting method for recognizing typographic English letters3 , the
+elastic matching method for recognizing hand written discrete English letters4 , the global
+training and fuzzy logic search method for recognizing Chinese characters written in square
+styleS, etc. are published. The self-organization of associative database realizes the recognition of handwritten continuous English letters.
+
+770
+
+9 /wn""
+
+NOV
+
+~ ~ ~ -xk :La.t
+
+~~ ~ ~~~
+
+dw1lo'
+
+~~~~~of~~
+
+~~~ 4,-?~~4Fig. 1. Source document.
+2~~---------------'
+
+lOO~---------------'
+
+H
+
+o
+
+o
+Fig. 2. Windowing.
+
+1000
+
+2000
+
+3000
+
+4000
+
+Number of samples
+
+o
+
+1000
+
+2000
+
+3000
+
+4000
+
+NUAlber of sampl es
+
+Fig. 3. An experiment result.
+
+An image scanner takes a document image (Fig. 1). The letter recognizer uses a parallelogram window that at least can cover the maximal letter (Fig. 2), and processes the
+sequence of letters while shifting the window. That is, the recognizer scans a word in a
+slant direction. And, it places the window so that its left vicinity may be on the first black
+point detected. Then, the window catches a letter and some part of the succeeding letter.
+If recognition of the head letter is performed, its end position, namely, the boundary line
+between two letters becomes known. Hence, by starting the scanning from this boundary
+and repeating the above operations, the recognizer accomplishes recursively the task. Thus
+the major problem comes to identifying the head letter in the window.
+Considering it, we define the following.
+? Regard window images as x's, and define X accordingly.
+? For a (x, x) E X x X, denote by B a black point in the left area from the boundary on
+window image X. Project each B onto window image x. Then, measure the Euclidean
+distance 6 between fj and a black point B on x being the closest to B. Let d(x, x) be
+the summation of 6's for all black points B's on x divided by the number of B's.
+? Regard couples of the ""reading"" and the position of boundary as y's, and define Y
+accordingly.
+An operator teaches the recognizer in interaction the relation between window image and
+reading& boundary with algorithm 3. Precisely, if the recalled reading is incorrect, the
+operator teaches a correct reading via the console. Moreover, if the boundary position is
+incorrect, he teaches a correct position via the mouse.
+Fig. 1 shows partially a document image used in this experiment. Fig. 3 shows the
+change of the number of nodes and that of the recognition rate defined as the relative
+frequency of correct answers in the past 1000 trials. Speciiications of the window are height
+= 20dot, width = 10dot, and slant angular = 68deg. In this example, the levels of tree
+were distributed in 6-19 at time 4000 and the recognition rate converged to about 74%.
+Experimentally, the recognition rate converges to about 60-85% in most cases, and to 95% at
+a rare case. However, it does not attain 100% since, e.g., ""c"" and ""e"" are not distinguishable
+because of excessive lluctuation in writing. If the consistency of the x, y-relation is not
+assured like this, the number of nodes increases endlessly (d. Fig. 3). Hence, it is clever to
+stop the learning when the recognition rate attains some upper limit. To improve further
+the recognition rate, we must consider the spelling of words. It is one of future subjects.
+
+771
+
+OBSTACLE AVOIDING MOVEMENT
+Various systems of camera type autonomous mobile robot are reported flourishingly6-1O.
+The system made up by the authors (Fig. 4) also belongs to this category. Now, in mathematical methodologies, we solve usually the problem of obstacle avoiding movement as
+a cost minimization problem under some cost criterion established artificially. Contrarily,
+the self-organization of associative database reproduces faithfully the cost criterion of an
+operator. Therefore, motion of the robot after learning becomes very natural.
+Now, the length, width and height of the robot are all about O.7m, and the weight is
+about 30kg. The visual angle of camera is about 55deg. The robot has the following three
+factors of motion. It turns less than ?30deg, advances less than 1m, and controls speed less
+than 3km/h. The experiment was done on the passageway of wid th 2.5m inside a building
+which the authors' laboratories exist in (Fig. 5). Because of an experimental intention, we
+arrange boxes, smoking stands, gas cylinders, stools, handcarts, etc. on the passage way at
+random. We let the robot take an image through the camera, recall a similar image, and
+trace the route preliminarily recorded on it. For this purpose, we define the following.
+? Let the camera face 28deg downward to take an image, and process it through a low
+pass filter. Scanning vertically the filtered image from the bottom to the top, search
+the first point C where the luminance changes excessively. Then, su bstitu te all points
+from the bottom to C for white, and all points from C to the top for black (Fig. 6).
+(If no obstacle exists just in front of the robot, the white area shows the ''free'' area
+where the robot can move around.) Regard binary 32 x 32dot images processed thus
+as x's, and define X accordingly.
+? For every (x, x) E X x X, let d(x, x) be the number of black points on the exclusive-or
+image between x and X.
+? Regard as y's the images obtained by drawing routes on images x's, and define Y
+accordingly.
+The robot superimposes, on the current camera image x, the route recalled for x, and
+inquires the operator instructions. The operator judges subjectively whether the suggested
+route is appropriate or not. In the negative answer, he draws a desirable route on x with the
+mouse to teach a new y to the robot. This opera.tion defines implicitly a sample sequence
+of (x, y) reflecting the cost criterion of the operator.
+
+.::l"" !
+-
+
+IibUBe
+
+_. -
+
+22
+
+11
+
+Roan
+
+12
+
+{-
+
+13
+
+Stationary uni t
+
+Fig. 4. Configuration of
+autonomous mobile robot system.
+
+~
+
+I
+
+,
+
+23
+
+24
+
+North
+14
+
+rmbi Ie unit (robot)
+
+-
+
+Roan
+
+y
+
+t
+
+Fig. 5. Experimental
+environment.
+
+772
+
+Wall
+
+Camera image
+
+Preprocessing
+
+A
+
+::: !fa
+
+?
+
+Preprocessing
+
+0
+
+O
+
+Course
+suggest ion
+
+??
+
+..
+
+Search
+
+A
+
+Fig. 6. Processing for
+obstacle avoiding movement.
+
+x
+
+Fig. 1. Processing for
+position identification.
+We define the satisfaction rate by the relative frequency of acceptable suggestions of
+route in the past 100 trials. In a typical experiment, the change of satisfaction rate showed
+a similar tendency to Fig. 3, and it attains about 95% around time 800. Here, notice that
+the rest 5% does not mean directly the percentage of collision. (In practice, we prevent the
+collision by adopting some supplementary measure.) At time 800, the number of nodes was
+145, and the levels of tree were distributed in 6-17.
+The proposed method reflects delicately various characters of operator. For example, a
+robot trained by an operator 0 moves slowly with enough space against obstacles while one
+trained by another operator 0' brushes quickly against obstacles. This fact gives us a hint
+on a method of printing ""characters"" into machines.
+POSITION IDENTIFICATION
+The robot can identify its position by recalling a similar landscape with the position data
+to a camera image. For this purpose, in principle, it suffices to regard camera images and
+position data as x's and y's, respectively. However, the memory capacity is finite in actual
+compu ters. Hence, we cannot but compress the camera images at a slight loss of information.
+Such compression is admittable as long as the precision of position identification is in an
+acceptable area. Thus, the major problem comes to find out some suitable compression
+method.
+In the experimental environment (Fig. 5), juts are on the passageway at intervals of
+3.6m, and each section between adjacent juts has at most one door. The robot identifies
+roughly from a surrounding landscape which section itself places in. And, it uses temporarily
+a triangular surveying technique if an exact measure is necessary. To realize the former task,
+we define the following .
+? Turn the camera to take a panorama image of 360deg. Scanning horizontally the
+center line, substitute the points where the luminance excessively changes for black
+and the other points for white (Fig. 1). Regard binary 360dot line images processed
+thus as x's, and define X accordingly.
+? For every (x, x) E X x X, project each black point A on x onto x. And, measure the
+Euclidean distance 6 between A and a black point A on x being the closest to A. Let
+the summation of 6 be S. Similarly, calculate S by exchanging the roles of x and X.
+Denoting the numbers of A's and A's respectively by nand n, define
+
+773
+
+d(x, x) =
+
+~(~
++ ~).
+2 n
+n
+
+(4)
+
+? Regard positive integers labeled on sections as y's (cf. Fig. 5), and define Y accordingly.
+In the learning mode, the robot checks exactly its position with a counter that is reset periodically by the operator. The robot runs arbitrarily on the passageways within 18m area
+and learns the relation between landscapes and position data. (Position identification beyond 18m area is achieved by crossing plural databases one another.) This task is automatic
+excepting the periodic reset of counter, namely, it is a kind of learning without teacher.
+We define the identification rate by the relative frequency of correct recalls of position
+data in the past 100 trials. In a typical example, it converged to about 83% around time
+400. At time 400, the number of levels was 202, and the levels oftree were distributed in 522. Since the identification failures of 17% can be rejected by considering the trajectory, no
+pro blem arises in practical use. In order to improve the identification rate, the compression
+ratio of camera images must be loosened. Such possibility depends on improvement of the
+hardware in the future.
+Fig. 8 shows an example of actual motion of the robot based on the database for obstacle
+avoiding movement and that for position identification. This example corresponds to a case
+of moving from 14 to 23 in Fig. 5. Here, the time interval per frame is about 40sec.
+
+,~. .~ (
+;~""i..
+~
+
+""
+
+""
+
+.
+
+..I
+
+I
+
+?
+?
+
+""
+
+I'
+.
+'.1
+t
+
+;
+
+i
+
+-:
+, . . , 'II
+
+Fig. 8. Actual motion of the robot.
+
+774
+
+CONCLUSION
+A method of self-organizing associative databases was proposed with the application to
+robot eyesight systems. The machine decomposes a global structure unknown into a set of
+local structures known and learns universally any input-output response. This framework
+of problem implies a wide application area other than the examples shown in this paper.
+A defect of the algorithm 3 of self-organization is that the tree is balanced well only
+for a subclass of structures of f. A subject imposed us is to widen the class. A probable
+solution is to abolish the addressing rule depending directly on values of d and, instead, to
+establish another rule depending on the distribution function of values of d. It is now under
+investigation.
+
+REFERENCES
+1. Hopfield, J. J. and D. W. Tank, ""Computing with Neural Circuit: A Model/'
+
+Science 233 (1986), pp. 625-633.
+2. Rumelhart, D. E. et al., ""Learning Representations by Back-Propagating Errors,"" Nature 323 (1986), pp. 533-536.
+
+3. Hull, J. J., ""Hypothesis Generation in a Computational Model for Visual Word
+Recognition,"" IEEE Expert, Fall (1986), pp. 63-70.
+4. Kurtzberg, J. M., ""Feature Analysis for Symbol Recognition by Elastic Matching,"" IBM J. Res. Develop. 31-1 (1987), pp. 91-95.
+
+5. Wang, Q. R. and C. Y. Suen, ""Large Tree Classifier with Heuristic Search and
+Global Training,"" IEEE Trans. Pattern. Anal. & Mach. Intell. PAMI 9-1
+(1987) pp. 91-102.
+6. Brooks, R. A. et al, ""Self Calibration of Motion and Stereo Vision for Mobile
+Robots,"" 4th Int. Symp. of Robotics Research (1987), pp. 267-276.
+7. Goto, Y. and A. Stentz, ""The CMU System for Mobile Robot Navigation,"" 1987
+IEEE Int. Conf. on Robotics & Automation (1987), pp. 99-105.
+8. Madarasz, R. et al., ""The Design of an Autonomous Vehicle for the Disabled,""
+IEEE Jour. of Robotics & Automation RA 2-3 (1986), pp. 117-125.
+9. Triendl, E. and D. J. Kriegman, ""Stereo Vision and Navigation within Buildings,"" 1987 IEEE Int. Conf. on Robotics & Automation (1987), pp. 1725-1730.
+10. Turk, M. A. et al., ""Video Road-Following for the Autonomous Land Vehicle,""
+1987 IEEE Int. Conf. on Robotics & Automation (1987), pp. 273-279.
+
+"
+10,1987,A Mean Field Theory of Layer IV of Visual Cortex and Its Application to Artificial Neural Networks,,10-a-mean-field-theory-of-layer-iv-of-visual-cortex-and-its-application-to-artificial-neural-networks.pdf,Abstract Missing,"683
+
+A MEAN FIELD THEORY OF LAYER IV OF VISUAL CORTEX
+AND ITS APPLICATION TO ARTIFICIAL NEURAL NETWORKS*
+Christopher L. Scofield
+Center for Neural Science and Physics Department
+Brown University
+Providence, Rhode Island 02912
+and
+Nestor, Inc., 1 Richmond Square, Providence, Rhode Island,
+02906.
+ABSTRACT
+A single cell theory for the development of selectivity and
+ocular dominance in visual cortex has been presented previously
+by Bienenstock, Cooper and Munrol. This has been extended to a
+network applicable to layer IV of visual cortex 2 . In this paper
+we present a mean field approximation that captures in a fairly
+transparent manner the qualitative, and many of the
+quantitative, results of the network theory. Finally, we consider
+the application of this theory to artificial neural networks and
+show that a significant reduction in architectural complexity is
+possible.
+A SINGLE LAYER NETWORK AND THE MEAN FIELD
+APPROXIMATION
+We consider a single layer network of ideal neurons which
+receive signals from outside of the layer and from cells within
+the layer (Figure 1). The activity of the ith cell in the network is
+c'1 -- m'1 d + """"'
+~ T .. c'
+~J J'
+
+J
+
+(1)
+
+Each cell
+d is a vector of afferent signals to the network.
+receives input from n fibers outside of the cortical network
+through the matrix of synapses mi' Intra-layer input to each cell
+is then transmitted through the matrix of cortico-cortical
+synapses L.
+? American Institute of Physics 1988
+
+684
+
+Afferent
+Signals
+
+>
+
+... ..
+
+m2
+
+m1
+
+mn
+
+~
+
+r;.
+
+"",...-
+
+d
+
+.L
+:
+
+1
+
+,~
+
+2
+
+... ..
+
+, ...c.. ,
+
+~
+
+~
+
+Figure 1: The general single layer recurrent
+network.
+Light circles are the LGN -cortical
+synapses.
+Dark circles are the (nonmodifiable) cortico-cortical synapses.
+We now expand the response of the i th cell into individual
+terms describing the number of cortical synapses traversed by
+the signal d before arriving through synapses Lij at cell i.
+Expanding Cj in (1), the response of cell i becomes
+ci
+
+=mi d + l: ~j mj d + l: ~jL Ljk mk d + 2: ~j 2Ljk L Lkn mn d +... (2)
+J
+
+J
+
+K
+
+J
+
+K' n
+
+Note that each term contains a factor of the form
+
+This factor describes the first order effect, on cell q, of the
+cortical transformation of the signal d.
+The mean field
+approximation consists of estimating this factor to be a constant,
+independant of cell location
+(3)
+
+685
+
+This assumption does not imply that each cell in the network is
+selective to the same pattern, (and thus that mi = mj). Rather,
+the assumption is that the vector sum is a constant
+
+This amounts to assuming that each cell in the network is
+surrounded by a population of cells which represent, on average,
+all possible pattern preferences.
+Thus the vector sum of the
+afferent synaptic states describing these pattern preferences is a
+constant independent of location.
+Finally, if we assume that the lateral connection strengths are
+a function only of i-j then Lij becomes a circular matrix so that
+
+r. Lij ::: ~J Lji = Lo = constan t.
+1
+
+Then the response of the cell i becomes
+(4)
+
+for I
+
+~
+
+I <1
+
+where we define the spatial average of cortical cell activity C = in
+d, and N is the average number of intracortical synapses.
+Here, in a manner similar to that in the theory of magnetism,
+we have replaced the effect of individual cortical cells by their
+average effect (as though all other cortical cells can be replaced
+by an 'effective' cell, figure 2). Note that we have retained all
+orders of synaptic traversal of the signal d.
+Thus, we now focus on the activity of the layer after
+'relaxation' to equilibrium. In the mean field approximation we
+can therefore write
+(5)
+
+where the mean field
+
+a
+with
+
+=am
+
+686
+
+and we asume that
+inhibitory).
+
+Afferent
+Signals
+d
+
+Lo < 0 (the network is,
+
+on
+
+average,
+
+>
+
+Figure 2: The single layer mean field network.
+Detailed connectivity between all cells of the
+network is replaced with a single (nonmodifiable) synapse from an 'effective' cell.
+LEARNING IN THE CORTICAL NETWORK
+
+We will first consider evolution of the network according to a
+synaptic modification rule that has been studied in detail, for
+single cells, elsewhere!? 3.
+We consider the LGN - cortical
+synapses to be the site of plasticity and assume for maximum
+simplicity that there is no modification of cortico-cortical
+synapses. Then
+(6)
+
+.
+
+Lij = O.
+In what follows c denotes the spatial average over cortical cells,
+while Cj denotes the time averaged activity of the i th cortical cell.
+The function cj> has been discussed extensively elsewhere.
+Here
+we note that cj> describes a function of the cell response that has
+both hebbian and anti-hebbian regions.
+
+687
+
+This leads to a very complex set of non-linear stochastic
+equations that have been analyzed partially elsewhere 2 . In
+general, the afferent synaptic state has fixed points that are
+stable and selective and unstable fixed points that are nonselective!, 2. These arguments may now be generalized for the
+network. In the mean field approximation
+(7)
+
+The mean field, a has a time dependent component m. This
+varies as the average over all of the network modifiable
+synapses and, in most environmental situations, should change
+slowly compared to the change of the modifiable synapses to a
+single cell. Then in this approximation we can write
+
+?
+
+(mi(a)-a) = cj>[mi(a) - a] d.
+
+(8)
+
+We see that there is a mapping
+mi' <-> mica) - a
+
+(9)
+
+such that for every mj(a) there exists a corresponding (mapped)
+point mj' which satisfies
+
+the original equation for the mean field zero theory. It can be
+shown 2, 4 that for every fixed point of mj( a = 0), there exists a
+corresponding fixed point mj( a) with the same selectivity and
+stability properties.
+The fixed points are available to the
+neurons if there is sufficient inhibition in the network (ILo I is
+sufficiently large).
+APPLICATION OF THE MEAN FIELD NETWORK TO
+LAYER IV OF VISUAL CORTEX
+Neurons in the primary visual cortex of normal adult cats are
+sharply tuned for the orientation of an elongated slit of light and
+most are activated by stimulation of either eye. Both of these
+properties--orientation selectivity and binocularity--depend on
+the type of visual environment experienced during a critical
+
+688
+
+period of early postnatal development. For example, deprivation
+of patterned input during this critical period leads to loss of
+orientation selectivity while monocular deprivation (MD) results
+in a dramatic shift in the ocular dominance of cortical neurons
+such that most will be responsive exclusively to the open eye.
+The ocular dominance shift after MD is the best known and most
+intensively studied type of visual cortical plasticity.
+The behavior of visual cortical cells in various rearing
+conditions suggests that some cells respond more rapidly to
+environmental changes than others.
+In monocular deprivation,
+for example, some cells remain responsive to the closed eye in
+spite of the very large shift of most cells to the open eye- Singer
+et. al. 5 found, using intracellular recording, that geniculo-cortical
+synapses on inhibitory interneurons are more resistant to
+monocular deprivation than are synapses on pyramidal cell
+dendrites. Recent work suggests that the density of inhibitory
+GABAergic synapses in kitten striate cortex is also unaffected by
+MD during the cortical period 6, 7.
+These results suggest that some LGN -cortical synapses modify
+rapidly, while others modify relatively slowly, with slow
+modification of some cortico-cortical synapses. Excitatory LGNcortical synapses into excitatory cells may be those that modify
+primarily.
+To embody these facts we introduce two types of
+LGN -cortical synapses:
+those (mj) that modify and those (Zk)
+that remain relatively constant. In a simple limit we have
+
+and
+
+(10)
+
+We assume for simplicity and consistent with the above
+physiological interpretation that these two types of synapses are
+confined to two different classes of cells and that both left and
+right eye have similar synapses (both m i or both Zk) on a given
+cell. Then, for binocular cells, in the mean field approximation
+(where binocular terms are in italics)
+
+689
+
+where dl(r) are the explicit left (right) eye time averaged signals
+arriving form the LGN.
+Note that a1(r) contain terms from
+modifiable and non-modifiable synapses:
+al(r) =
+
+a (ml(r) + zl(r?).
+
+Under conditions of monocular deprivation, the animal is reared
+with one eye closed. For the sake of analysis assume that the
+right eye is closed and that only noise-like signals arrive at
+cortex from the right eye. Then the environment of the cortical
+cells is:
+d = (di, n)
+
+(12)
+
+Further, assume that the left eye synapses have reached their
+1
+
+r
+
+selective fixed point, selective to pattern d 1 ? Then (mi' m i )
+(m:*, xi) with IXil ?lm!*1.
+linear analysis of the
+the closed eye
+
+<I> -
+
+=
+
+Following the methods of BCM, a local
+function is employed to show that for
+
+Xi =
+
+a (1 - }..a)-li.r.
+
+(13)
+
+where A. = NmIN is the ratio of the number modifiable cells to the
+total number of cells in the network. That is, the asymptotic
+state of the closed eye synapses is a scaled function of the meanfield due to non-modifiable (inhibitory) cortical cells. The scale
+of this state is set not only by the proportion of non-modifiable
+cells, but in addition, by the averaged intracortical synaptic
+strength Lo.
+Thus contrasted with the mean field zero theory the deprived
+eye LGN-cortical synapses do not go to zero.
+Rather they
+approach the constant value dependent on the average inhibition
+produced by the non-modifiable cells in such a way that the
+asymptotic output of the cortical cell is zero (it cannot be driven
+by the deprived eye). However lessening the effect of inhibitory
+synapses (e.g. by application of an inhibitory blocking agent such
+as bicuculine) reduces the magnitude of a so that one could once
+more obtain a response from the deprived eye.
+
+690
+
+We find, consistent with previous theory and experiment,
+that most learning can occur in the LGN-cortical synapse, for
+inhibitory (cortico-cortical) synapses need not modify.
+Some
+non-modifiable LGN-cortical synapses are required.
+THE MEAN FIELD APPROXIMATION AND
+ARTIFICIAL NEURAL NETWORKS
+The mean field approximation may be applied to networks in
+which the cortico-cortical feedback is a general function of cell
+activity. In particular, the feedback may measure the difference
+between the network activity and memories of network activity.
+In this way, a network may be used as a content addressable
+memory.
+We have been discussing the properties of a mean
+field network after equilibrium has been reached. We now focus
+on the detailed time dependence of the relaxation of the cell
+activity to a state of equilibrium.
+Hopfield8 introduced a simple formalism for the analysis of
+the time dependence of network activity.
+In this model,
+network activity is mapped onto a physical system in which the
+state of neuron activity is considered as a 'particle' on a potential
+energy surface.
+Identification of the pattern occurs when the
+activity 'relaxes' to a nearby minima of the energy.
+Thus
+mlmma are employed as the sites of memories. For a Hopfield
+network of N neurons, the intra-layer connectivity required is of
+order N2. This connectivity is a significant constraint on the
+practical implementation of such systems for large scale
+problems. Further, the Hopfield model allows a storage capacity
+which is limited to m < N memories 8, 9. This is a result of the
+proliferation of unwanted local minima in the 'energy' surface.
+Recently, Bachmann et al. l 0, have proposed a model for the
+relaxation of network activity in which memories of activity
+patterns are the sites of negative 'charges', and the activity
+caused by a test pattern is a positive test 'charge'. Then in this
+model, the energy function is the electrostatic energy of the
+(unit) test charge with the collection of charges at the memory
+sites
+
+E = -IlL ~ Qj I J-l- Xj I - L,
+J
+
+(14)
+
+691
+
+where Jl (0) is a vector describing the initial network activity
+caused by a test pattern, and Xj' the site of the jth memory. L is
+a parameter related to the network size.
+This model has the advantage that storage density is not
+restricted by the the network size as it is in the Hopfield model,
+and in addition, the architecture employs a connectivity of order
+m x N.
+Note that at each stage in the settling of Jl (t) to a memory
+(of network activity) Xj' the only feedback from the network to
+each cell is the scalar
+~
+
+J
+
+Q. I Jl- X? I - L
+J
+
+J
+
+(15)
+
+This quantity is an integrated measure of the distance of the
+current network state from stored memories.
+Importantly, this
+measure is the same for all cells; it is as if a single virtual cell
+was computing the distance in activity space between the
+current state and stored states. The result of the computation is
+This is a
+then broadcast to all of the cells in the network.
+generalization of the idea that the detailed activity of each cell in
+the network need not be fed back to each cell.
+Rather some
+global measure, performed by a single 'effective' cell is all that is
+sufficient in the feedback.
+DISCUSSION
+
+We have been discussing a formalism for the analysis of
+networks of ideal neurons based on a mean field approximation
+of the detailed activity of the cells in the network. We find that
+a simple assumption concerning the spatial distribution of the
+pattern preferences of the cells allows a great simplification of
+the analysis. In particular, the detailed activity of the cells of
+the network may be replaced with a mean field that in effect is
+computed by a single 'effective' cell.
+Further, the application of this formalism to the cortical layer
+IV of visual cortex allows the prediction that much of learning in
+cortex may be localized to the LGN-cortical synaptic states, and
+that cortico-cortical plasticity is relatively unimportant. We find,
+in agreement with experiment, that monocular deprivation of
+the cortical cells will drive closed-eye responses to zero, but
+chemical blockage of the cortical inhibitory pathways would
+reveal non-zero closed-eye synaptic states.
+
+692
+
+Finally, the mean field approximation allows the development
+of single layer models of memory storage that are unrestricted
+in storage density, but require a connectivity of order mxN. This
+is significant for the fabrication of practical content addressable
+memories.
+ACKNOWLEOOEMENTS
+I would like to thank Leon Cooper for many helpful discussions
+and the contributions he made to this work.
+
+*This work was supported by the Office of Naval Research and
+the Army Research Office under contracts #NOOOI4-86-K-0041
+and #DAAG-29-84-K-0202.
+
+REFERENCES
+[1] Bienenstock, E. L., Cooper, L. N & Munro, P. W. (1982) 1.
+Neuroscience 2, 32-48.
+[2] Scofield, C. L. (I984) Unpublished Dissertation.
+[3] Cooper, L. N, Munro, P. W. & Scofield, C. L. (1985) in Synaptic
+Modification, Neuron Selectivity and Nervous System
+Organization, ed. C. Levy, J. A. Anderson & S. Lehmkuhle,
+(Erlbaum Assoc., N. J.).
+[4] Cooper, L. N & Scofield, C. L. (to be published) Proc. Natl. Acad.
+Sci. USA ..
+[5] Singer, W. (1977) Brain Res. 134, 508-000.
+[6] Bear, M. F., Schmechel D. M., & Ebner, F. F. (1985) 1. Neurosci.
+5, 1262-0000.
+[7] Mower, G. D., White, W. F., & Rustad, R. (1986) Brain Res. 380,
+253-000.
+[8] Hopfield, J. J. (1982) Proc. Natl. A cad. Sci. USA 79, 2554-2558.
+[9] Hopfield, J. J., Feinstein, D. 1., & Palmer, R. O. (1983) Nature
+304, 158-159.
+[10] Bachmann, C. M., Cooper, L. N, Dembo, A. & Zeitouni, O. (to be
+published) Proc. Natl. Acad. Sci. USA.
+
+"
+100,1988,Storing Covariance by the Associative Long-Term Potentiation and Depression of Synaptic Strengths in the Hippocampus,,100-storing-covariance-by-the-associative-long-term-potentiation-and-depression-of-synaptic-strengths-in-the-hippocampus.pdf,Abstract Missing,"394
+
+STORING COVARIANCE BY THE ASSOCIATIVE
+LONG?TERM POTENTIATION AND DEPRESSION
+OF SYNAPTIC STRENGTHS IN THE HIPPOCAMPUS
+Patric K. Stanton? and Terrence J. Sejnowski t
+Department of Biophysics
+Johns Hopkins University
+Baltimore, MD 21218
+ABSTRACT
+
+In modeling studies or memory based on neural networks, both the selective
+enhancement and depression or synaptic strengths are required ror effident storage
+or inrormation (Sejnowski, 1977a,b; Kohonen, 1984; Bienenstock et aI, 1982;
+Sejnowski and Tesauro, 1989). We have tested this assumption in the hippocampus,
+a cortical structure or the brain that is involved in long-term memory. A brier,
+high-frequency activation or excitatory synapses in the hippocampus produces an
+increase in synaptic strength known as long-term potentiation, or LTP (BUss and
+Lomo, 1973), that can last ror many days. LTP is known to be Hebbian since it
+requires the simultaneous release or neurotransmitter from presynaptic terminals
+coupled with postsynaptic depolarization (Kelso et al, 1986; Malinow and Miller,
+1986; Gustatrson et al, 1987). However, a mechanism ror the persistent reduction or
+synaptic strength that could balance LTP has not yet been demonstrated. We studied the associative interactions between separate inputs onto the same dendritic
+trees or hippocampal pyramidal cells or field CAl, and round that a low-frequency
+input which, by itselr, does not persistently change synaptic strength, can either
+increase (associative LTP) or decrease in strength (associative long-term depression
+or LTD) depending upon whether it is positively or negatively correlated in time
+with a second, high-frequency bursting input. LTP or synaptic strength is Hebbian,
+and LTD is anti-Hebbian since it is elicited by pairing presynaptic firing with postsynaptic hyperpolarization sufficient to block postsynaptic activity. Thus, associative LTP and associative LTO are capable or storing inrormation contained in the
+covariance between separate, converging hippocampal inputs?
+
+?Present address: Dep~ents of NeW'Oscience and Neurology, Albert Einstein College
+of Medicine, 1410 Pelham Parkway South, Bronx, NY 10461 USA.
+tPresent address: Computational Neurobiology Laboratory, The Salk Institute, P.O. Box
+85800, San Diego, CA 92138 USA.
+
+Storing Covariance by Synaptic Strengths in the Hippocampus
+
+INTRODUCTION
+Associative LTP can be produced in some hippocampal neuroos when lowfrequency. (Weak) and high-frequency (Strong) inputs to the same cells are simultaneously activated (Levy and Steward, 1979; Levy and Steward, 1983; Barrionuevo and
+Brown, 1983). When stimulated alone, a weak input does not have a long-lasting effect
+on synaptic strength; however, when paired with stimulation of a separate strong input
+sufficient to produce homo synaptic LTP of that pathway, the weak pathway is associatively potentiated. Neural network modeling studies have predicted that, in addition to
+this Hebbian form of plasticity, synaptic strength should be weakened when weak and
+strong inputs are anti-correlated (Sejnowski, 1977a,b; Kohonen, 1984; Bienenstock et al,
+1982; Sejnowski and Tesauro, 1989). Evidence for heterosynaptic depression in the hippocampus has been found for inputs that are inactive (Levy and Steward, 1979; Lynch et
+al, 1977) or weakly active (Levy and Steward, 1983) during the stimulation of a strong
+input, but this depression did not depend on any pattern of weak input activity and was
+not typically as long-lasting as LTP.
+Therefore, we searched for conditions under which stimulation of a hippocampal
+pathway, rather than its inactivity, could produce either long-term depression or potentiation of synaptic strengths, depending on the pattern of stimulation. The stimulus paradigm that we used, illustrated in Fig. I, is based on the finding that bursts of stimuli at 5
+Hz are optimal in eliciting LTP in the hippocampus (Larson and Lynch, 1986). A highfrequency burst (S'IRONG) stimulus was applied to Schaffer collateral axons and a lowfrequency (WEAK) stimulus given to a separate subicular input coming from the opposite side of the recording site, but terminating on dendrites of the same population of CAl
+pyramidal neurons. Due to the rhythmic nature of the strong input bursts, each weak
+input shock could be either superimposed on the middle of each burst of the strong input
+(IN PHASE), or placed symmetrically between bursts (OUT OF PHASE).
+
+RESULTS
+Extracellular evoked field potentials were recorded from the apical dendritic and
+somatic layers of CAl pyramidal cells. The weak stimulus train was first applied alone
+and did not itself induce long-lasting changes. The strong site was then stimulated alone,
+which elicited homosynaptic LTP of the strong pathway but did not significantly alter
+amplitude of responses to the weak input. When weak and strong inputs were activated
+IN PHASE, there was an associative LTP of the weak input synapses, as shown in Fig.
+2a. Both the synaptic excitatory post-synaptic potential (e.p.s.p.) (Ae.p.s.p. = +49.8 ?
+7.8%, n=20) and population action potential (&Pike = +65.4 ? 16.0%, n=14) were
+significantly enhanced for at least 60 min up to 180 min following stimulation.
+In contrast, when weak and strong inputs were applied OUT OF PHASE, they elicited an associative long-term depression (LTO) of the weak input synapses, as shown in
+Fig. 2b. There was a marked reduction in the population spike (-46.5 ? 11.4%, n=10)
+with smaller decreases in the e.p.s.p. (-13.8 ? 3.5%, n=13). Note that the stimulus patterns applied to each input were identical in these two experiments, and only the relative
+
+395
+
+396
+
+Stanton and Sejnowski
+
+phase of the weak and strong stimuli was altered. With these stimulus patterns. synaptic
+strength could be repeatedly enhanced and depressed in a single slice. as illustrated in Fig
+2c. As a control experiment to determine whether information concerning covariance
+between the inputs was actually a determinant of plasticity. we combined the in phase
+and out of phase conditions, giving both the weak input shocks superimposed on the
+bursts plus those between the bursts. for a net frequency of 10 Hz. This pattern. which
+resulted in zero covariance between weak and strong inputs. produced no net change in
+weak input synaptic strength measmed by extracellular evoked potentials. Thus. the assoa
+
+b
+A.SSOCIA.TIVE STIMULUS PA.RA.DIGMS
+POSJTIVE.LY CORKELA TED ? ""IN PHASE""
+
+~K~~ _I~__~I____~I____~I_
+SI1IONG,NJO\IT
+
+. u.Jj1l 11l. -1---1&1111.....
+11 ---1&1
+111.....
+11 ---,I~IIII
+
+NEGATIVELY CORRELATED? 'our OF PHASE""
+W[AKIN'lTf
+
+STIONG 'N''''
+
+~I
+
+11111
+
+--,-;
+
+11111
+
+11111
+
+Figure 1. Hippocampal slice preparation and stimulus paradigms. a: The in vitro hippocampal slice showing recording sites in CAl pyramidal cell somatic (stratum pyramidale) and dendritic (stratum radiatum) layers. and stimulus sites activating Schaffer collateral (STRONG) and commissural (WEAK) afferents. Hippocampal slices (400 Jlm
+thick) were incubated in an interface slice chamber at 34-35 0 C. Extracellular (1-5 M!l
+resistance, 2M NaCI filled) and intracellular (70-120 M 2M K-acetate filled) recording electrodes. and bipolar glass-insulated platinum wire stimulating electrodes (50 Jlm
+tip diameter). were prepared by standard methods (Mody et al, 1988). b: Stimulus paradigms used. Strong input stimuli (STRONG INPUT) were four trains of 100 Hz bursts.
+Each burst had 5 stimuli and the interburst interval was 200 msec. Each train lasted 2
+seconds for a total of 50 stimuli. Weak input stimuli (WEAK INPUT) were four trains of
+shocks at 5 Hz frequency. each train lasting for 2 seconds. When these inputs were IN
+PHASE. the weak single shocks were superimposed on the middle of each burst of the
+strong input. When the weak input was OUT OF PHASE. the single shocks were placed
+symmetrically between the bursts.
+
+n.
+
+Storing Covariance by Synaptic Strengths in the Hippocampus
+
+ciative LTP and LTD mechanisms appear to be balanced in a manner ideal for the
+storage of temporal covariance relations.
+The simultaneous depolarization of the postsynaptic membrane and activation of
+glutamate receptors of the N-methyl-D-aspartate (NMDA) subtype appears to be necessary for LTP induction (Collingridge et ai, 1983; Harris et al, 1984; Wigstrom and Gustaffson, 1984). The SJ?read of current from strong to weak synapses in the dendritic tree,
+d
+
+ASSOCIATIVE
+
+LON(;.TE~
+
+I'OTENTIATION
+
+LONG-TE~
+
+DE,/tESSION
+
+-
+
+!!Ll!!!!.
+
+b
+
+ASSOCIATIVE
+
+I
+
+11111
+
+?
+
+11111.
+I
+
+c
+
+e...
+
+I
+
+I
+
+I
+
+I
+
+Figure 2. mustration of associative long-term potentiation (LTP) and associative longterm depression (LTD) using extracellular recordings. a: Associative LTP of evoked
+excitatory postsynaptic potentials (e.p.s.p.'s) and population action potential responses in
+the weak inpuL Test responses are shown before (Pre) and 30 min after (post) application of weak stimuli in phase with the coactive strong input. b: Associative LTD of
+evoked e.p.s.p.'s and population spike responses in the weak input. Test responses are
+shown before (Pre) and 30 min after (post) application of weak stimuli out of phase with
+the coactive strong input. c: Time course of the changes in population spike amplitude
+observed at each input for a typical experiment. Test responses from the strong input (S,
+open circles), show that the high-frequency bursts (5 pulses/l00 Hz, 200 msec interburst
+interval as in Fig. 1) elicited synapse-specific LTP independent of other input activity.
+Test responses from the weak input (W. filled circles) show that stimulation of the weak
+pathway out of phase with the strong one produced associative LTD (Assoc LTD) of this
+input. Associative LTP (Assoc LTP) of the same pathway was then elicited following in
+phase stimulation. Amplitude and duration of associative LTD or LTP could be increased
+by stimulating input pathways with more trains of shocks.
+
+397
+
+398
+
+Stanton and Sejnowski
+
+coupled with release of glutamate from the weak inputs, could account for the ability of
+the strong pathway to associatively potentiate a weak one (Kelso et al, 1986; Malinow
+and Miller, 1986; Gustaffson et al, 1987). Consistent with this hypothesis, we find that
+the NMDA receptor antagonist 2-amino-S-phosphonovaleric acid (APS, 10 J.1M) blocks
+induction of associative LTP in CAl pyramidal neurons (data not shown, n=S). In contrast, the application of APS to the bathing solution at this same concentration had no
+significant effect on associative LTD (data not shown, n=6). Thus, the induction of LTD
+seems to involve cellular mechanisms different from associative LTP.
+The conditions necessary for LTD induction were explored in another series of
+experiments using intracellular recordings from CAl pyramidal neurons made using
+standard techniques (Mody et al, 1988). Induction of associative LTP (Fig 3; WEAK
+S+W IN PHASE) produced an increase in amplitude of the single cell evoked e.p.s.p. and
+a lowered action potential threshold in the weak pathway, as reported previously (Barrionuevo and Brown, 1983). Conversely, the induction of associative LTD (Fig. 3;
+WEAK S+W OUT OF PHASE) was accompanied by a long-lasting reduction of e.p.s.p.
+amplitude and reduced ability to elicit action potential firing. As in control extracellular
+experiments, the weak input alone produced no long-lasting alterations in intracellular
+e.p.s.p.'s or firing properties, while the strong input alone yielded specific increases of
+the strong pathway e.p.s.p. without altering e.p.s.p. 's elicited by weak input stimulation.
+
+PRE
+
+30 min POST
+S+W OUT OF PHASE
+
+30 min POST
+S+W IN PHASE
+
+Figure 3. Demonstration of associative LTP and LTD using intracellular recordings from
+a CAl pyramidal neuron. Intracellular e.p.s.p.'s prior to repetitive stimulation (pre), 30
+min after out of phase stimulation (S+W OUT OF PHASE), and 30 min after subsequent in phase stimuli (S+W IN PHASE). The strong input (Schaffer collateral side,
+lower traces) exhibited LTP of the evoked e.p.s.p. independent of weak input activity.
+Out of phase stimulation of the weak (Subicular side, upper traces) pathway produced a
+marked, persistent reduction in e.p.s.p. amplitude. In the same cell, subsequent in phase
+stimuli resulted in associative LTP of the weak input that reversed the LTD and enhanced
+amplitude of the e.p.s.p. past the original baseline. (RMP = -62 mY, RN = 30 MO)
+
+Storing Covariance by Synaptic Strengths in the Hippocampus
+
+A weak stimulus that is out of phase with a strong one anives when the postsynaptic neuron is hyperpolarized as a consequence of inhibitory postsynaptic potentials and
+afterhyperpolarization from mechanisms intrinsic to pyramidal neurons. This suggests
+that postsynaptic hyperpolarization coupled with presynaptic activation may trigger L'ID.
+To test this hypothesis, we injected current with intracellular microelectrodes to hyperpolarize or depolarize the cell while stimulating a synaptic input. Pairing the injection of
+depolarizing current with the weak input led to LTP of those synapses (Fig. 4a; STIM;
+
+a
+
+PRE
+
+? ?IDPOST
+S'I1M ? DEPOL
+
+~l""V
+lS.,.c
+
+r
+,"" i
+
+COI'ITROL
+
+-Jj
+
+b
+
+I
+
+--"" \
+
+""----
+
+(W.c:ULVllj
+
+PRE
+
+lOlIIin POST
+STlM ? HYPERPOL
+
+Figure 4. Pairing of postsynaptic hyperpolarization with stimulation of synapses on CAl
+hippocampal pyramidal neurons produces L'ID specific to the activated pathway, while
+pairing of postsynaptic depolarization with synaptic stimulation produces synapsespecific LTP. a: Intracellular evoked e.p.s.p.'s are shown at stimulated (STIM) and
+unstimulated (CONTROL) pathway synapses before (Pre) and 30 min after (post) pairing a 20 mY depolarization (constant current +2.0 nA) with 5 Hz synaptic stimulation.
+The stimulated pathway exhibited associative LTP of the e.p.s.p., while the control,
+unstimulated input showed no change in synaptic strength. (RMP = -65 mY; RN = 35
+Mfl) b: Intracellular e.p.s.p. 's are shown evoked at stimulated and control pathway
+synapses before (Pre) and 30 min after (post) pairing a 20 mV hyperpolarization (constant current -1.0 nA) with 5 Hz synaptic stimulation. The input (STIM) activated during
+the hyperpolarization showed associative LTD of synaptic evoked e.p.s.p.'s, while
+synaptic strength of the silent input (CONTROL) was unaltered. (RMP =-62 mV; RN =
+38M!l)
+
+399
+
+400
+
+Stanton and Sejnowski
+
++64.0 -9.7%, n=4), while a control input inactive during the stimulation did not change
+(CONTROL), as reported previously (Kelso et al, 1986; Malinow and Miller, 1986; Gustaffson et al, 1987). Conversely, prolonged hyperpolarizing current injection paired with
+the same low-frequency stimuli led to induction of LTD in the stimulated pathway (Fig.
+4b; STIM; -40.3 ? 6.3%, n=6). but not in the unstimulated pathway (CONTROL). The
+application of either depolarizing current, hyperpolarizing current, or the weak 5 Hz
+synaptic stimulation alone did not induce long-term alterations in synaptic strengths.
+Thus. hyperpolarization and simultaneous presynaptic activity supply sufficient conditions for the induction of LTD in CAl pyramidal neurons.
+
+CONCLUSIONS
+These experiments identify a novel fono of anti-Hebbian synaptic plasticity in the
+hippocampus and confirm predictions made from modeling studies of information storage
+in neural networks. Unlike previous reports of synaptic depression in the hippocampus,
+the plasticity is associative, long-lasting, and is produced when presynaptic activity
+occurs while the postsynaptic membrane is hyperpolarized. In combination with Hebbian
+mechanisms also present at hippocampal synapses. associative LTP and associative LTD
+may allow neurons in the hippocampus to compute and store covariance between inputs
+(Sejnowski, 1977a,b; Stanton and Sejnowski. 1989). These finding make temporal as
+well as spatial context an important feature of memory mechanisms in the hippocampus.
+Elsewhere in the brain, the receptive field properties of cells in cat visual cortex
+can be altered by visual experience paired with iontophoretic excitation or depression of
+cellular activity (Fregnac et al, 1988; Greuel et al, 1988). In particular, the chronic hyperpolarization of neurons in visual cortex coupled with presynaptic transmitter release leads
+to a long-teno depression of the active. but not inactive, inputs from the lateral geniculate
+nucleus (Reiter and Stryker, 1988). Thus. both Hebbian and anti-Hebbian mechanisms
+found in the hippocampus seem to also be present in other brain areas, and covariance of
+firing patterns between converging inputs a likely key to understanding higher cognitive
+function.
+This research was supported by grants from the National Science Foundation and
+the Office of Naval research to TJS. We thank Drs. Charles Stevens and Richard Morris
+for discussions about related experiments.
+
+Rererences
+Bienenstock, E., Cooper. LN. and Munro. P. Theory for the development of neuron
+selectivity: orientation specificity and binocular interaction in visual cortex. J. Neurosci. 2. 32-48 (1982).
+Barrionuevo, G. and Brown, T.H. Associative long-teno potentiation in hippocampal
+slices. Proc. Nat. Acad. Sci. (USA) 80, 7347-7351 (1983).
+Bliss. T.V.P. and Lomo, T. Long-lasting potentiation of synaptic ttansmission in the dentate area of the anaesthetized rabbit following stimulation of the perforant path. J.
+Physiol. (Lond.) 232. 331-356 (1973).
+
+Storing Covariance by Synaptic Strengths in the Hippocampus
+
+Collingridge, GL., Kehl, SJ. and McLennan, H. Excitatory amino acids in synaptic
+transmission in the Schaffer collateral-commissural pathway of the rat hippocampus. J.
+Physiol. (Lond.) 334, 33-46 (1983).
+Fregnac, Y., Shulz, D., Thorpe, S. and Bienenstock, E. A cellular analogue of visual cortical plasticity. Nature (Lond.) 333, 367-370 (1988).
+Greuel. J.M.. Luhmann. H.J. and Singer. W. Pharmacological induction of usedependent receptive field modifications in visual cortex. Science 242,74-77 (1988).
+Gustafsson, B., Wigstrom, H., Abraham, W.C. and Huang. Y.Y. Long-term potentiation
+in the hippocampus using depolarizing current pulses as the conditioning stimulus to
+single volley synaptic potentials. J. Neurosci. 7, 774-780 (1987).
+Harris. E.W., Ganong, A.H. and Cotman, C.W. Long-term potentiation in the hippocampus involves activation of N-metbyl-D-aspartate receptors. Brain Res. 323, 132137 (1984).
+Kelso, S.R.. Ganong, A.H. and Brown, T.H. Hebbian synapses in hippocampus. Proc.
+Natl. Acad. Sci. USA 83, 5326-5330 (1986).
+Kohonen. T. Self-Organization and Associative Memory. (Springer-Verlag. Heidelberg,
+1984).
+Larson. J. and Lynch. G. Synaptic potentiation in hippocampus by patterned stimulation
+involves two events. Science 232, 985-988 (1986).
+Levy. W.B. and Steward, O. Synapses as associative memory elements in the hippocampal formation. Brain Res. 175,233-245 (1979).
+Levy. W.B. and Steward, O. Temporal contiguity requirements for long-term associative
+potentiation/depression in the hippocampus. Neuroscience 8, 791-797 (1983).
+Lynch. G.S., Dunwiddie. T. and Gribkoff. V. Heterosynaptic depression: a postsynaptic
+correlate oflong-term potentiation. Nature (Lond.) 266. 737-739 (1977).
+Malinow. R. and Miller, J.P. Postsynaptic hyperpolarization during conditioning reversibly blocks induction of long-term potentiation Nature (Lond.)32.0. 529-530 (1986).
+Mody. I.. Stanton. PK. and Heinemann. U. Activation of N-methyl-D-aspartate
+(NMDA) receptors parallels changes in cellular and synaptic properties of dentate
+gyrus granule cells after kindling. J. Neurophysiol. 59. 1033-1054 (1988).
+Reiter, H.O. and Stryker, M.P. Neural plasticity without postsynaptic action potentials:
+Less-active inputs become dominant when kitten visual cortical cells are pharmacologically inhibited. Proc. Natl. Acad. Sci. USA 85, 3623-3627 (1988).
+Sejnowski, T J. and Tesauro, G. Building network learning algorithms from Hebbian
+synapses, in: Brain Organization and Memory JL. McGaugh, N.M. Weinberger, and
+G. Lynch, Eds. (Oxford Univ. Press, New York, in press).
+Sejnowski, TJ. Storing covariance with nonlinearly interacting neurons. J. Math. Biology 4, 303-321 (1977).
+Sejnowski, T. J. Statistical constraints on synaptic plasticity. J. Theor. Biology 69, 385389 (1977).
+Stanton, P.K. and Sejnowski, TJ. Associative long-term depression in the hippocampus:
+Evidence for anti-Hebbian synaptic plasticity. Nature (Lond.), in review.
+Wigstrom, H. and Gustafsson, B. A possible correlate of the postsynaptic condition for
+long-lasting potentiation in the guinea pig hippocampus in vitro. Neurosci. Lett. 44,
+327?332 (1984).
+
+401
+
+"
+1000,1994,Bayesian Query Construction for Neural Network Models,,1000-bayesian-query-construction-for-neural-network-models.pdf,Abstract Missing,"Bayesian Query Construction for Neural
+Network Models
+Gerhard Paass
+Jorg Kindermann
+German National Research Center for Computer Science (GMD)
+D-53757 Sankt Augustin, Germany
+paass@gmd.de
+kindermann@gmd.de
+
+Abstract
+If data collection is costly, there is much to be gained by actively selecting particularly informative data points in a sequential way. In
+a Bayesian decision-theoretic framework we develop a query selection criterion which explicitly takes into account the intended use
+of the model predictions. By Markov Chain Monte Carlo methods
+the necessary quantities can be approximated to a desired precision. As the number of data points grows, the model complexity
+is modified by a Bayesian model selection strategy. The properties of two versions of the criterion ate demonstrated in numerical
+experiments.
+
+1
+
+INTRODUCTION
+
+In this paper we consider the situation where data collection is costly, as when
+for example, real measurements or technical experiments have to be performed. In
+this situation the approach of query learning ('active data selection', 'sequential
+experimental design', etc.) has a potential benefit. Depending on the previously
+seen examples, a new input value ('query') is selected in a systematic way and
+the corresponding output is obtained. The motivation for query learning is that
+random examples often contain redundant information, and the concentration on
+non-redundant examples must necessarily improve generalization performance.
+We use a Bayesian decision-theoretic framework to derive a criterion for query construction. The criterion reflects the intended use of the predictions by an appropriate
+
+444
+
+Gerhard Paass. Jorg Kindermann
+
+loss function. We limit our analysis to the selection of the next data point, given a
+set of data already sampled. The proposed procedure derives the expected loss for
+candidate inputs and selects a query with minimal expected loss.
+There are several published surveys of query construction methods [Ford et al. 89,
+Plutowski White 93, Sollich 94]. Most current approaches, e.g. [Cohn 94], rely
+on the information matrix of parameters. Then however, all parameters receive
+equal attention regardless of their influence on the intended use of the model
+[Pronzato Walter 92]. In addition, the estimates are valid only asymptotically. Bayesian approaches have been advocated by [Berger 80], and applied to neural networks
+[MacKay 92]. In [Sollich Saad 95] their relation to maximum information gain is
+discussed. In this paper we show that by using Markov Chain Monte Carlo methods it is possible to determine all quantities necessary for the selection of a query.
+This approach is valid in small sample situations, and the procedure's precision can
+be increased with additional computational effort. With the square loss function,
+the criterion is reduced to a variant of the familiar integrated mean square error
+[Plutowski White 93].
+
+In the next section we develop the query selection criterion from a decision-theoretic
+point of view. In the third section we show how the criterion can be calculated using
+Markov Chain Monte Carlo methods and we discuss a strategy for model selection.
+In the last section, the results of two experiments with MLPs are described.
+2
+
+A DECISION-THEORETIC FRAMEWORK
+
+Assume we have an input vector x and a scalar output y distributed as y """" p(y I x, w)
+where w is a vector of parameters. The conditional expected value is a deterministic
+function !(x, w) := E(y I x, w) where y = !(x, w)+? and ? is a zero mean error term.
+Suppose we have iteratively collected observations D(n) := ((Xl, iii), .. . , (Xn, Yn)).
+We get the Bayesian posterior p(w I D(n)) = p(D(n) Iw) p(w)/ J p(D(n) Iw) p(w) dw
+and the predictive distribution p(y I x, D(n)) = p(y I x, w)p(w I D(n)) dw if p(w) is
+the prior distribution.
+
+J
+
+We consider the situation where, based on some data x, we have to perform an
+action a whose result depends on the unknown output y. Some decisions may have
+more severe effects than others. The loss function L(y, a) E [0,00) measures the
+loss if y is the true value and we have taken the action a E A. In this paper we
+consider real-valued actions, e.g. setting the temperature a in a chemical process.
+We have to select an a E A only knowing the input x. According to the Bayes
+Principle [Berger 80, p.14] we should follow a decision rule d : x --t a such that
+the average risk J R(w, d) p(w I D(n)) dw is minimal, where the risk is defined as
+R(w, d) := J L(y, d(x)) p(y I x, w) p(x) dydx. Here p(x) is the distribution of future
+inputs, which is assumed to be known.
+For the square loss function L(y, a) = (y - a)2, the conditional expectation
+d(x) := E(y I x, D(n)) is the optimal decision rule. In a control problem the loss
+may be larger at specific critical points. This can be addressed with a weighted square loss function L(y, a) := h(y)(y - a)2, where h(y) 2: a [Berger 80,
+p.1U]. The expected loss for an action is J(y - a)2h(y) p(y I x, D(n)) dy. Replacing the predictive density p(y I x, D(n)) with the weighted predictive density
+
+Bayesian Query Construction for Neural Network Models
+
+445
+
+p(y I x, Den) := h(y) p(y I x, Den)/G(x), where G(x) := I h(y) p(y I x, Den) dy,
+we get the optimal decision rule d(x) := I yp(y I x, Den) dy and the average loss
+G(x) I(y - E(y I x, D(n))2 p(y I x, Den) dy for a given input x. With these modifications, all later derIvations for the square loss function may be applied to the
+weighted square loss.
+The aim of query sampling is the selection of a new observation x in such a way
+that the average risk will be maximally reduced. Together with its still unknown
+y-value, x defines a new observation (x, y) and new data Den) U (x, y). To determine
+this risk for some given x we have to perform the following conceptual steps for a
+candidate query x:
+1. Future Data: Construct the possible sets of 'future' observations Den) U
+
+(x, y), where y """"' p(y I x, Den).
+2. Future posterior: Determine a 'future' posterior distribution of parameters
+p(w I Den) U (x, y? that depends on y in the same way as though it had
+actually been observed.
+3. Future Loss: Assuming d~,x(x) is the optimal decision rule for given values
+of x, y, and x, compute the resulting loss as
+
+1';,x(x):=
+
+J
+
+L(y,d;,x(x?p(ylx,w)p(wIDen)U(x,y?dydw
+
+(1)
+
+4. Averaging: Integrate this quantity over the future trial inputs x distributed
+as p(x) and the different possible future outputs y, yielding
+
+1';:= Ir;,x(x)p(x)p(ylx,Den)dxdy.
+This procedure is repeated until an x with minimal average risk is found. Since local
+optima are typical, a global optimization method is required. Subsequently we then
+try to determine whether the current model is still adequate or whether we have to
+increase its complexity (e.g. by adding more hidden units).
+
+3
+
+COMPUTATIONAL PROCEDURE
+
+Let us assume that the real data Den) was generated according to a regression model
+y = !(x, w)+{ with i.i.d. Gaussian noise {""""' N(O, (T2(w?. For example !(x, w) may
+be a multilayer perceptron or a radial basis function network. Since the error terms
+are independent, the posterior density is p( w I Den) ex: p( w) rr~=l P(Yi I Xi, w) even
+in the case of query sampling [Ford et al. 89].
+As the analytic derivation of the posterior is infeasible except in trivial cases, we
+have to use approximations. One approach is to employ a normal approximation
+[MacKay 92], but this is unreliable if the number of observations is small compared to the number of parameters. We use Markov Chain Monte Carlo procedures
+[PaaB 91, Neal 93] to generate a sample WeB) := {WI, .. .WB} of parameters distributed according to p( w I Den). If the number of sampling steps approaches infinity,
+the distribution of the simulated Wb approximates the posterior arbitrarily well.
+To take into account the range of future y-values, we create a set of them by simulation. For each Wb E WeB) a number of y """"' p(y I x, Wb) is generated. Let
+
+446
+
+y(x.R)
+
+Gerhard Paass. JiJrg Kindermann
+
+{YI, ... , YR} be the resulting set. Instead of performing a new Markov
+Monte Carlo run to generate a new sample according to p(w I DCn) U (x, y)), we
+:=
+
+use the old set WCB) of parameters and reweight them (importance sampling).
+In this way we may approximate integrals of some function g( w) with respect to
+p(w I DCn) U (x, y)) [Kalos Whitlock 86, p.92]:
+
+- -))d
+j 9 (w ) P(W IDCn) U( X,
+Y
+W
+
+__
+
+--
+
+L~-lg(Wb)P(ylx,Wb)
+B
+
+Lb=l p(Y I x, Wb)
+
+(2)
+
+The approximation error approaches zero as the size of WCB) increases.
+
+3.1
+
+APPROXIMATION OF FUTURE LOSS
+
+Consider the future loss f;,x(x) given new observation (x, y) and trial input Xt. In
+the case of the square loss function, (1) can be transformed to
+
+f~,.t(Xt)
+
+=
+
+j[!(Xt,w)-E(yIXt,Dcn)U(X,y)Wp(wIDcn)U(x,y))dw (3)
+
++ j ?T2(w) p(w I DCn) U (x, y)) dw
+where ?T2(w) := Var(y I x, w) is independent of x. Assume a set XT = {Xl, ... , XT}
+is given, which is representative of trial inputs for the distribution p(x). Define
+S(x, y) := L~=i p(Y I x, Wb) for y E YCx,R) . Then from equations (2) and (3) we get
+E(ylxt,DCn)U(x,y)):= 1/S(x,Y)L~=1!(Xt,Wb)P(Ylx,Wb) and
+1
+
+B
+
+S(x -) L?T 2(Wb)P(Ylx,Wb)
+,y b=l
+1
+
++ S(x
+
+(4)
+
+B
+
+-) I)!(Xt, Wb) - E(y I Xt, DCn) U (x, y))]2 p(Y I x, Wb)
+
+,y
+
+b=l
+
+The final value of f; is obtained by averaging over the different y E YCx,R) and
+different trial inputs Xt E XT. To reduce the variance, the trial inputs Xt should
+be selected by importance sampling (2) to concentrate them on regions with high
+current loss (see (5) below). To facilitate the search for an x with minimal f; we
+reduce the extent of random fluctuations of the y values. Let (Vi, ... , VR) be a
+vector of random numbers Vr -- N(O,1), and let jr be randomly selected from
+{1, ... , B}. Then for each x the possible observations Yr E YCx,R) are defined as
+Yr := !(x, wir) + V r?T2(wir). In this way the difference between neighboring inputs
+is not affected by noise, and search procedures can exploit gradients.
+
+3.2
+
+CURRENT LOSS
+
+As a proxy for the future loss, we may use the current loss at
+
+x,
+
+rcurr(x) = p(x) j L(y, d*(x)) p(y I x, DCn)) dy
+
+(5)
+
+Bayesian Query Construction for Neural Network Models
+
+447
+
+where p(x) weights the inputs according to their relevance. For the square loss
+function the average loss at x is the conditional variance Var(y I x, DCn?. We get
+
+=
+
+Tcurr(X)
+
+p(x) jU(x,w)-E(YIX,DCn?)2p(wIDcn?dw
+
+(6)
+
++ p(x) j 0""2(w) p(w I D(n? dw
+If E(y I x,DCn?
+fr~~=lf(x,wb) and the sample WCB):= {Wl, ... ,WB} is
+representative of p(w I DCn? we can approximate the current loss with
+
+Tcurr(X)
+
+~
+
+p( x) ~
+
+13 L..tU(x, Wb) -
+
+2
+
+E(y I x, DCn?) +
+A
+
+p( x) ~
+
+13 L..t 0""
+
+b=l
+
+2
+
+(Wb)
+
+(7)
+
+b=l
+
+If the input distribution p( x) is uniform, the second term is independent of x.
+3.3
+
+COMPLEXITY REGULARIZATION
+
+Neural network models can represent arbitrary mappings between finite-dimensional
+spaces if the number of hidden units is sufficiently large [Hornik Stinchcombe 89].
+As the number of observations grows, more and more hidden units are necessary to catch the details of the mapping. Therefore we use a sequential procedure to increase the capacity of our networks during query learning. White and
+Wooldridge call this approach the ""method of sieves"" and provide some asymptotic results on its consistency [White Wooldridge 91]. Gelfand and Dey compare Bayesian approaches for model selection and prove that, in the case of nested models Ml and M2, model choice by the ratio of popular Bayes factors
+p(DCn) I Mi) := J p(DCn) I W, Mi ) p(w I Mi) dw will always choose the full model
+regardless of the data as n --t 00 [Gelfand Dey 94]. They show that the pseudoBayes factor, a Bayesian variant of crossvalidation, is not affected by this paradox
+
+A(Ml' M2) :=
+
+n
+
+n
+
+;=1
+
+j=1
+
+II p(y; I x;, DCn,j), Mt}j II p(Y; Ix;, DCn,j), M2)
+
+(8)
+
+Here DCn ,;) := D(n) \ (x;, y;). As the difference between p(w I DCn? and p( wi D(n,j?
+is usually small, we use the full posterior as the importance function (2) and get
+
+p(Y;
+
+I x;, DCn,j),Mi) =
+
+j p(Y; IXj,w,Mi)p(wIDCn,j),Mi)dw
+
+'"" B/(t,l/P(Y;li;,W""M,))
+4
+
+(9)
+
+NUMERICAL DEMONSTRATION
+
+In a first experiment we tested the approach for a small a 1-2-1 MLP target function with Gaussian noise N(0,0.05 2 ). We assumed the square loss function and a
+uniform input distribution p(x) over [-5,5]. Using the ""true"" architecture for the
+approximating model we started with a single randomly generated observation. We
+
+448
+
+Gerhard Paass, JiJrg Kindermann
+
+~
+
+=~!?~
+
+--- ~tuo:io_
+
+~
+
+.. .' .
+
+1'01
+
+..
+
+on
+
+~
+
+I - '~ ' =~ I
+
+:;
+
+""
+
+. ..
+
+a:
+0
+
+::::.:::::.::::\....
+d
+
+:;
+
+....
+
+\~.
+
+'\ ------ -- - - - - - - -----
+
+\., 1\l
+
+. . ......_. _-_._...........__................... _. ._......._..
+
+~
+
+\!
+
+~
+
+,
+
+\
+
+:.,.
+\, '
+
+""
+
+\!
+
+'""
+0
+
+..
+
+-2
+
+10
+
+15
+20
+No.d_
+
+25
+
+30
+
+Figure 1: Future loss exploration: predicted posterior mean, future loss and current
+loss for 12 observations (left), and root mean square error of prediction (right) .
+estimated the future loss by (4) for 100 different inputs and selected the input with
+smallest future loss as the next query. B = 50 parameter vectors were generated requiring 200,000 Metropolis steps. Simultaneously we approximated the current loss
+criterion by (7). The left side of figure 1 shows the typical relation of both measures.
+In most situations the future loss is low in the same regions where the current loss
+(posterior standard deviation of mean prediction) is high. The queries are concentrated in areas of high variation and the estimated posterior mean approximates
+the target function quite well.
+In the right part of figure 1 the RMSE of prediction averaged over 12 independent
+experiments is shown. After a few observations the RMSE drops sharply. In our
+example there is no marked difference between the prediction errors resulting from
+the future loss and the current loss criterion (also averaged over 12 experiments).
+Considering the substantial computing effort this favors the current loss criterion.
+The dots indicate the RMSE for randomly generated data (averaged over 8 experiments) using the same Bayesian prediction procedure. Because only few data points
+were located in the critical region of high variation the RMSE is much larger.
+In the second experiment, a 2-3-1 MLP defined the target function I(x, wo) , to which
+Gaussian noise of standard deviation 0.05 was added. I( x, wo) is shown in the left
+part of figure 2. We used five MLPs with 2-6 hidden units as candidate models
+Ml, .. . , M5 and generated B = 45 samples WeB) of the posterior pew I D(n)' M.),
+where D(n) is the current data. We started with 30,000 Metropolis steps for small
+values of n and increased this to 90,000 Metropolis steps for larger values of n.
+For a network with 6 hidden units and n = 50 observations, 10,000 Metropolis
+steps took about 30 seconds on a Sparc10 workstation. Next, we used equation (9)
+to compare the different models, and then used the optimal model to calculate the
+current loss (7) on a regular grid of 41 x 41 = 1681 query points x. Here we assumed
+the square loss function and a uniform input distribution p(x) over [-5,5] x [-5,5].
+We selected the query point with maximal current loss and determined the final
+query point with a hillclimbing algorithm. In this way we were rather sure to get
+close to the true global optimum.
+The main result of the experiment is summarized in the right part of figure 2. It
+
+Bayesian Query Construct.ion for Neural Network Models
+
+449
+
+?
+o
+
+"".
+
+.m
+
+eXDlorati~n
+random a
+
+:2""': \
+<:>
+
+\
+
+~\?{l? .
+.,
+.""
+
+o .. o .. o ............. __ (). ...
+
+\
+
+. . .......... 0 ... .. ........ --
+
+..
+
+~.
+
+20
+
+40
+
+0
+
+60
+
+80
+
+100
+
+No. of Observations
+
+Figure 2: Current loss exploration: MLP target function and root mean square error.
+shows - averaged over 3 experiments - the root mean square error between the true
+mean value and the posterior mean E(y I x) on the grid of 1681 inputs in relation to
+the sample size. Three phases of the exploration can be distinguished (see figure 3).
+In the beginning a search is performed with many queries on the border of the
+input area. After about 20 observations the algorithm knows enough detail about
+the true function to concentrate on the relevant parts of the input space. This leads
+to a marked reduction ofthe mean square error. After 40 observations the systematic
+part of the true function has been captured nearly perfectly. In the last phase of
+the experiment the algorithm merely reduces the uncertainty caused by the random
+noise. In contrast , the data generated randomly does not have sufficient information
+on the details of f(x , w), and therefore the error only gradually decreases. Because
+of space constraints we cannot report experiments with radial basis functions which
+led to similar results.
+Acknowledgements
+This work is part of the joint project 'REFLEX' of the German Fed. Department
+of Science and Technology (BMFT), grant number 01 IN 111Aj4. We would like to
+thank Alexander Linden, Mark Ring, and Frank Weber for many fruitful discussions.
+
+References
+[Berger 80] Berger, J. (1980): Statistical Decision Theory, Foundations, Concepts, and
+Methods. Springer Verlag, New York.
+[Cohn 94] Cohn, D. (1994): Neural Network Exploration Using Optimal Experimental
+Design. In J. Cowan et al. (eds.): NIPS 5. Morgan Kaufmann, San Mateo.
+[Ford et al. 89] Ford, I. , Titterington, D.M., Kitsos, C.P. (1989): Recent Advances in Nonlinear Design. Technometrics, 31, p.49-60.
+[Gelfand Dey 94] Gelfand, A.E., Dey, D.K. (1994): Bayesian Model Choice: Asymptotics
+and Exact Calculations. J. Royal Statistical Society B, 56, pp.501-514.
+
+450
+
+Gerhard Paass, Jorg Kindermann
+
+Figure 3: Squareroot of current loss (upper row) and absolute deviation from true
+function (lower row) for 10,25, and 40 observations (which are indicated by dots) .
+[Hornik Stinchcombe 89] Hornik, K., Stinchcombe, M. (1989): Multilayer Feedforward
+Networks are Universal Approximators. Neural Networks 2, p.359-366.
+[Kalos Whitlock 86] Kalos, M.H., Whitlock, P.A. (1986): Monte Carlo Methods, Wiley,
+New York.
+[MacKay 92] MacKay, D. (1992): Information-Based Objective Functions for Active Data
+Selection. Neural Computation 4, p .590-604.
+[Neal 93] Neal, R.M. (1993): Probabilistic Inference using Markov Chain Monte Carlo
+Methods. Tech. Report CRG-TR-93-1, Dep. of Computer Science, Univ. of Toronto.
+[PaaB 91] PaaB, G. (1991): Second Order Probabilities for Uncertain and Conflicting Evidence. In: P.P. Bonissone et al. (eds.) Uncertainty in Artificial Intelligence 6. Elsevier,
+Amsterdam, pp. 447-456.
+[Plutowski White 93] Plutowski, M., White, H. (1993): Selecting Concise Training Sets
+from Clean Data. IEEE Tr. on Neural Networks, 4, p.305-318.
+[Pronzato Walter 92] Pronzato, L., Walter, E. (1992): Nonsequential Bayesian Experimental Design for Response Optimization. In V. Fedorov, W.G. Miiller, I.N. Vuchkov
+(eds.): Model Oriented Data-Analysis. Physica Verlag, Heidelberg, p. 89-102.
+[Sollich 94] Sollich, P. (1994): Query Construction, Entropy and Generalization in Neural
+Network Models. To appear in Physical Review E.
+[Sollich Saad 95] Sollich, P., Saad, D. (1995): Learning from Queries for Maximum Information Gain in Unlearnable Problems. This volume.
+[White Wooldridge 91] White, H., Wooldridge, J. (1991): Some Results for Sieve Estimation with Dependent Observations. In W. Barnett et al. (eds.) : Nonparametric and
+Semiparametric Methods in Econometrics and Statistics, New York, Cambridge Univ.
+Press.
+
+"
+1001,1994,"Neural Network Ensembles, Cross Validation, and Active Learning",,1001-neural-network-ensembles-cross-validation-and-active-learning.pdf,Abstract Missing,"Neural Network Ensembles, Cross
+Validation, and Active Learning
+
+Anders Krogh""
+Nordita
+Blegdamsvej 17
+2100 Copenhagen, Denmark
+
+Jesper Vedelsby
+Electronics Institute, Building 349
+Technical University of Denmark
+2800 Lyngby, Denmark
+
+Abstract
+Learning of continuous valued functions using neural network ensembles (committees) can give improved accuracy, reliable estimation of the generalization error, and active learning. The ambiguity
+is defined as the variation of the output of ensemble members averaged over unlabeled data, so it quantifies the disagreement among
+the networks. It is discussed how to use the ambiguity in combination with cross-validation to give a reliable estimate of the ensemble
+generalization error, and how this type of ensemble cross-validation
+can sometimes improve performance. It is shown how to estimate
+the optimal weights of the ensemble members using unlabeled data.
+By a generalization of query by committee, it is finally shown how
+the ambiguity can be used to select new training data to be labeled
+in an active learning scheme.
+
+1
+
+INTRODUCTION
+
+It is well known that a combination of many different predictors can improve predictions. In the neural networks community ""ensembles"" of neural networks has been
+investigated by several authors, see for instance [1, 2, 3]. Most often the networks
+in the ensemble are trained individually and then their predictions are combined.
+This combination is usually done by majority (in classification) or by simple averaging (in regression), but one can also use a weighted combination of the networks .
+.. Author to whom correspondence should be addressed. Email: kroghlnordita. elk
+
+232
+
+Anders Krogh, Jesper Vedelsby
+
+At the workshop after the last NIPS conference (December, 1993) an entire session
+was devoted to ensembles of neural networks ( ""Putting it all together"", chaired by
+Michael Perrone) . Many interesting papers were given, and it showed that this area
+is getting a lot of attention .
+A combination of the output of several networks (or other predictors) is only useful
+if they disagree on some inputs. Clearly, there is no more information to be gained
+from a million identical networks than there is from just one of them (see also
+[2]). By quantifying the disagreement in the ensemble it turns out to be possible
+to state this insight rigorously for an ensemble used for approximation of realvalued functions (regression). The simple and beautiful expression that relates the
+disagreement (called the ensemble ambiguity) and the generalization error is the
+basis for this paper, so we will derive it with no further delay.
+
+2
+
+THE BIAS-VARIANCE TRADEOFF
+
+Assume the task is to learn a function J from RN to R for which you have a sample
+of p examples, (xiJ , yiJ), where yiJ = J(xiJ) and J.t = 1, . . . ,p. These examples
+are assumed to be drawn randomly from the distribution p(x) . Anything in the
+following is easy to generalize to several output variables.
+The ensemble consists of N networks and the output of network a on input x is
+called va (x). A weighted ensemble average is denoted by a bar , like
+
+V(x) =
+
+L Wa Va(x).
+
+(1)
+
+a
+
+This is the final output of the ensemble. We think of the weight Wa as our belief in
+network a and therefore constrain the weights to be positive and sum to one. The
+constraint on the sum is crucial for some of the following results.
+The ambiguity on input x of a single member of the ensemble is defined as aa (x)
+(V a(x) - V(x))2 . The ensemble ambiguity on input x is
+
+a(x)
+
+= Lwaaa(x) = LWa(va(x) a
+
+V(x))2 .
+
+=
+
+(2)
+
+a
+
+It is simply the variance of the weighted ensemble around the weighed mean, and
+it measures the disagreement among the networks on input x. The quadratic error
+of network a and of the ensemble are
+
+(J(x) - V a(x))2
+(J(x) - V(X))2
+
+(3)
+(4)
+
+respectively. Adding and subtracting J( x) in (2) yields
+
+a(x)
+
+=L
+
+Wafa(X) - e(x)
+
+(5)
+
+a
+
+(after a little algebra using that the weights sum to one) . Calling the weighted
+average of the individual errors ?( x) = La Wa fa (x) this becomes
+
+e(x)
+
+= ?(x) -
+
+a(x).
+
+(6)
+
+Neural Network Ensembles, Cross Validation, and Active Learning
+
+233
+
+All these formulas can be averaged over the input distribution . Averages over the
+input distribution will be denoted by capital letter, so
+
+J dxp(xVl! (x)
+J dxp(x)aa(x)
+J dxp(x)e(x).
+
+E
+
+(7)
+(8)
+(9)
+
+The first two of these are the generalization error and the ambiguity respectively
+for network n , and E is the generalization error for the ensemble. From (6) we then
+find for the ensemble generalization error
+(10)
+The first term on the right is the weighted average of the generalization errors of
+the individual networks (E = La waEa), and the second is the weighted average
+of the ambiguities (A = La WaAa), which we refer to as the ensemble ambiguity.
+The beauty of this equation is that it separates the generalization error into a term
+that depends on the generalization errors of the individual networks and another
+term that contain all correlations between the networks . Furthermore, the correlation term A can be estimated entirely from unlabeled data, i. e., no knowledge is
+required of the real function to be approximated. The term ""unlabeled example"" is
+borrowed from classification problems, and in this context it means an input x for
+which the value of the target function f( x) is unknown.
+Equation (10) expresses the tradeoff between bias and variance in the ensemble ,
+but in a different way than the the common bias-variance relation [4] in which the
+averages are over possible training sets instead of ensemble averages. If the ensemble
+is strongly biased the ambiguity will be small , because the networks implement very
+similar functions and thus agree on inputs even outside the training set. Therefore
+the generalization error will be essentially equal to the weighted average of the
+generalization errors of the individual networks. If, on the other hand , there is a
+large variance , the ambiguity is high and in this case the generalization error will
+be smaller than the average generalization error . See also [5].
+From this equation one can immediately see that the generalization error of the
+ensemble is always smaller than the (weighted) average of the ensemble errors,
+E < E. In particular for uniform weights:
+
+E
+
+~ ~ 'fEcx
+
+(11)
+
+which has been noted by several authors , see e.g. [3] .
+
+3
+
+THE CROSS-VALIDATION ENSEMBLE
+
+From (10) it is obvious that increasing the ambiguity (while not increasing individual
+generalization errors) will improve the overall generalization. We want the networks
+to disagree! How can we increase the ambiguity of the ensemble? One way is to
+use different types of approximators like a mixture of neural networks of different
+topologies or a mixture of completely different types of approximators. Another
+
+234
+
+Anders Krogh, Jesper Vedelsby
+
+.
+
+:~
+
+1. -
+
+t
+
+-
+
+,',
+
+.. ,
+
+E o...... -' '.- .. ' ........ ....,.
+
+.'
+
+..... , ...
+
+v '. --:
+
+,
+
+.~.--c??
+
+__ .. -.tI""
+
+.
+
+. -- - -\\
+
+'1
+
+-
+
+.~
+
+~.
+
+, . _ ? ."" ?
+
+.. - .....
+
+_._ ..... .'-._._.1
+
+,
+
+-
+
+>
+
+-
+
+-1.k!
+~
+
+-4
+
+.t.
+
+f.
+
+1\.1
+
+:\,'. - ?-.l
+
+:--,____
+..
+
+~~
+.
+
+~.
+
+,
+
+,'
+
+-2
+
+.~
+
+If
+
+o
+
+2
+
+\.
+~
+:
+?
+
+' 0'
+
+~:
+
+4
+
+x
+
+Figure 1: An ensemble of five networks were trained to approximate the square
+wave target function f(x). The final ensemble output (solid smooth curve) and
+the outputs of the individual networks (dotted curves) are shown. Also the square
+root of the ambiguity is shown (dash-dot line) _ For training 200 random examples
+were used, but each network had a cross-validation set of size 40, so they were each
+trained on 160 examples.
+
+obvious way is to train the networks on different training sets. Furthermore, to be
+able to estimate the first term in (10) it would be desirable to have some kind of
+cross-validation. This suggests the following strategy.
+Chose a number K :::; p. For each network in the ensemble hold out K examples for
+testing, where the N test sets should have minimal overlap, i. e., the N training sets
+should be as different as possible. If, for instance, K :::; piN it is possible to choose
+the K test sets with no overlap. This enables us to estimate the generalization error
+E(X of the individual members of the ensemble, and at the same time make sure
+that the ambiguity increases . When holding out examples the generalization errors
+for the individual members of the ensemble, E(X, will increase, but the conjecture
+is that for a good choice of the size of the ensemble (N) and the test set size
+(K), the ambiguity will increase more and thus one will get a decrease in overall
+generalization error.
+This conjecture has been tested experimentally on a simple square wave function
+of one variable shown in Figure 1. Five identical feed-forward networks with one
+hidden layer of 20 units were trained independently by back-propagation using 200
+random examples. For each network a cross-validation set of K examples was held
+out for testing as described above. The ""true"" generalization and the ambiguity were
+estimated from a set of 1000 random inputs. The weights were uniform, w(X
+1/5
+(non-uniform weights are addressed later).
+
+=
+
+In Figure 2 average results over 12 independent runs are shown for some values of
+
+Neural Network Ensembles, Cross Validation, and Active Learning
+
+Figure 2: The solid line shows the generalization error for uniform weights as
+a function of K, where K is the size
+of the cross-validation sets. The dotted
+line is the error estimated from equation (10) . The dashed line is for the
+optimal weights estimated by the use of
+the generalization errors for the individual networks estimated from the crossvalidation sets as described in the text.
+The bottom solid line is the generalization error one would obtain if the individual generalization errors were known
+exactly (the best possible weights).
+
+0.08
+
+235
+
+,-----r----,--~---r-----,
+
+o
+
+t=
+w
+0.06
+
+c
+
+o
+~
+
+.!::!
+
+co...
+
+~ 0.04
+
+Q)
+
+(!)
+
+0 .02 '---_---1_ _---'-_ _--'-_ _-----'
+o
+20
+40
+60
+80
+Size of CV set
+
+K (top solid line) . First, one should note that the generalization error is the same
+for a cross-validation set of size 40 as for size 0, although not lower, so it supports
+the conjecture in a weaker form. However, we have done many experiments, and
+depending on the experimental setup the curve can take on almost any form, sometimes the error is larger at zero than at 40 or vice versa. In the experiments shown,
+only ensembles with at least four converging networks out of five were used . If all
+the ensembles were kept, the error would have been significantly higher at ]{ = a
+than for K > a because in about half of the runs none of the networks in the ensemble converged - something that seldom happened when a cross-validation set
+was used. Thus it is still unclear under which circumstances one can expect a drop
+in generalization error when using cross-validation in this fashion.
+
+The dotted line in Figure 2 is the error estimated from equation (10) using the
+cross-validation sets for each of the networks to estimate Ea, and one notices a
+good agreement.
+
+4
+
+OPTIMAL WEIGHTS
+
+The weights Wa can be estimated as described in e.g. [3]. We suggest instead
+to use unlabeled data and estimate them in such a way that they minimize the
+generalization error given in (10) .
+There is no analytical solution for the weights , but something can be said about
+the minimum point of the generalization error. Calculating the derivative of E as
+given in (10) subject to the constraints on the weights and setting it equal to zero
+shows that
+Ea - Aa
+E or Wa = O.
+(12)
+
+=
+
+(The calculation is not shown because of space limitations, but it is easy to do.)
+That is, Ea - Aa has to be the same for all the networks. Notice that Aa depends
+on the weights through the ensemble average of the outputs. It shows that the
+optimal weights have to be chosen such that each network contributes exactly waE
+
+236
+
+Anders Krogh, Jesper Vedelsby
+
+to the generalization error. Note, however, that a member of the ensemble can have
+such a poor generalization or be so correlated with the rest of the ensemble that it
+is optimal to set its weight to zero.
+The weights can be ""learned"" from unlabeled examples, e.g. by gradient descent
+minimization of the estimate of the generalization error (10). A more efficient
+approach to finding the optimal weights is to turn it into a quadratic optimization
+problem. That problem is non-trivial only because of the constraints on the weights
+(L:a Wa = 1 and Wa 2:: 0). Define the correlation matrix,
+C af3
+
+=
+
+f
+
+dxp(x)V a (x)V f3 (x) .
+
+(13)
+
+Then, using that the weights sum to one, equation (10) can be rewritten as
+E
+
+=
+
+L
+a
+
+wa Ea
+
++ L w a C af3 w f3 - L
+af3
+
+waCaa .
+
+(14)
+
+a
+
+Having estimates of E a and C af3 the optimal weights can be found by linear programming or other optimization techniques. Just like the ambiguity, the correlation
+matrix can be estimated from unlabeled data to any accuracy needed (provided that
+the input distribution p is known).
+In Figure 2 the results from an experiment with weight optimization are shown.
+The dashed curve shows the generalization error when the weights are optimized as
+described above using the estimates of Ea from the cross-validation (on K exampies). The lowest solid curve is for the idealized case, when it is assumed that the
+errors Ea are known exactly, so it shows the lowest possible error. The performance
+improvement is quite convincing when the cross-validation estimates are used.
+It is important to notice that any estimate of the generalization error of the individual networks can be used in equation (14). If one is certain that the individual
+networks do not overfit, one might even use the training errors as estimates for
+Ea (see [3]). It is also possible to use some kind of regularization in (14), if the
+cross-validation sets are small.
+
+5
+
+ACTIVE LEARNING
+
+In some neural network applications it is very time consuming and/or expensive
+to acquire training data, e.g., if a complicated measurement is required to find the
+value of the target function for a certain input. Therefore it is desirable to only use
+examples with maximal information about the function. Methods where the learner
+points out good examples are often called active learning.
+We propose a query-based active learning scheme that applies to ensembles of networks with continuous-valued output. It is essentially a generalization of query by
+committee [6, 7] that was developed for classification problems. Our basic assumption is that those patterns in the input space yielding the largest error are those
+points we would benefit the most from including in the training set.
+Since the generalization error is always non-negative, we see from (6) that the
+weighted average of the individual network errors is always larger than or equal to
+the ensemble ambiguity,
+f(X) 2:: a(x),
+(15)
+
+Neural Network Ensembles. Cross Validation. and Active Learning
+
+237
+
+2.5 r""':"":'T---r--""T""""--.-----r---,
+
+.
+
+.
+
+.
+
+:
+
+0.5
+
+o
+
+10
+
+20
+
+30
+
+Training set size
+
+40
+
+50
+
+o
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Training set size
+
+Figure 3: In both plots the full line shows the average generalization for active
+learning, and the dashed line for passive learning as a function of the number of
+training examples. The dots in the left plot show the results of the individual
+experiments contributing to the mean for the active learning. The dots in right plot
+show the same for passive learning.
+
+which tells us that the ambiguity is a lower bound for the weighted average of the
+squared error. An input pattern that yields a large ambiguity will always have a
+large average error. On the other hand, a low ambiguity does not necessarily imply
+a low error. If the individual networks are trained to a low training error on the
+same set of examples then both the error and the ambiguity are low on the training
+points. This ensures that a pattern yielding a large ambiguity cannot be in the close
+neighborhood of a training example. The ambiguity will to some extent follow the
+fluctuations in the error. Since the ambiguity is calculated from unlabeled examples
+the input-space can be scanned for these areas to any detail. These ideas are well
+illustrated in Figure 1, where the correlation between error and ambiguity is quite
+strong, although not perfect.
+The results of an experiment with the active learning scheme is shown in Figure 3.
+An ensemble of 5 networks was trained to approximate the square-wave function
+shown in Figure 1, but in this experiments the function was restricted to the interval
+from - 2 to 2. The curves show the final generalization error of the ensemble in a
+passive (dashed line) and an active learning test (solid line). For each training set
+size 2x40 independent tests were made, all starting with the same initial training
+set of a single example. Examples were generated and added one at a time. In the
+passive test examples were generated at random, and in the active one each example
+was selected as the input that gave the largest ambiguity out of 800 random ones.
+Figure 3 also shows the distribution of the individual results of the active and
+passive learning tests. Not only do we obtain significantly better generalization by
+active learning, there is also less scatter in the results. It seems to be easier for the
+ensemble to learn from the actively generated set.
+
+238
+
+6
+
+Anders Krogh. Jesper Vedelsby
+
+CONCLUSION
+
+The central idea in this paper was to show that there is a lot to be gained from
+using unlabeled data when training in ensembles. Although we dealt with neural
+networks, all the theory holds for any other type of method used as the individual
+members of the ensemble.
+It was shown that apart from getting the individual members of the ensemble to
+generalize well, it is important for generalization that the individuals disagrees as
+much as possible, and we discussed one method to make even identical networks
+disagree. This was done by training the individuals on different training sets by
+holding out some examples for each individual during training. This had the added
+advantage that these examples could be used for testing, and thereby one could
+obtain good estimates of the generalization error.
+It was discussed how to find the optimal weights for the individuals of the ensemble.
+For our simple test problem the weights found improved the performance of the
+ensemble significantly.
+
+Finally a method for active learning was described, which was based on the method
+of query by committee developed for classification problems. The idea is that if the
+ensemble disagrees strongly on an input, it would be good to find the label for that
+input and include it in the training set for the ensemble. It was shown how active
+learning improves the learning curve a lot for a simple test problem.
+Acknowledgements
+
+We would like to thank Peter Salamon for numerous discussions and for his implementation of linear programming for optimization of the weights. We also thank
+Lars Kai Hansen for many discussions and great insights, and David Wolpert for
+valuable comments.
+
+References
+[1] L.K. Hansen and P Salamon. Neural network ensembles. IEEE Transactions on
+Pattern Analysis and Machine Intelligence, 12(10):993- 1001, Oct. 1990.
+[2] D.H Wolpert. Stacked generalization. Neural Networks, 5(2):241-59, 1992.
+[3] Michael P. Perrone and Leon N Cooper. When networks disagree: Ensemble method
+for neural networks. In R. J. Mammone, editor, Neural Networks for Speech and Image
+processing. Chapman-Hall, 1993.
+[4] S. Geman , E . Bienenstock, and R Doursat. Neural networks and the bias/variance
+dilemma. Neural Computation, 4(1):1-58, Jan. 1992.
+[5] Ronny Meir. Bias, variance and the combination of estimators; the case of linear least
+squares. Preprint (In Neuroprose), Technion, Heifa, Israel, 1994.
+[6] H.S. Seung, M. Opper, and H. Sompolinsky. Query by committee. In Proceedings of
+the Fifth Workshop on Computational Learning Theory, pages 287-294, San Mateo,
+CA, 1992. Morgan Kaufmann.
+[7] Y. Freund, H.S. Seung, E. Shamir, and N. Tishby. Information, prediction, and query
+by committee. In Advances in Neural Information Processing Systems, volume 5, San
+Mateo, California, 1993. Morgan Kaufmann.
+
+"
+1002,1994,Using a neural net to instantiate a deformable model,,1002-using-a-neural-net-to-instantiate-a-deformable-model.pdf,Abstract Missing,"U sing a neural net to instantiate a
+deformable model
+Christopher K. I. Williams; Michael D. Revowand Geoffrey E. Hinton
+Department of Computer Science, University of Toronto
+Toronto, Ontario, Canada M5S lA4
+
+Abstract
+Deformable models are an attractive approach to recognizing nonrigid objects which have considerable within class variability. However, there are severe search problems associated with fitting the
+models to data. We show that by using neural networks to provide
+better starting points, the search time can be significantly reduced.
+The method is demonstrated on a character recognition task.
+In previous work we have developed an approach to handwritten character recognition based on the use of deformable models (Hinton, Williams and Revow, 1992a;
+Revow, Williams and Hinton, 1993). We have obtained good performance with this
+method, but a major problem is that the search procedure for fitting each model to
+an image is very computationally intensive, because there is no efficient algorithm
+(like dynamic programming) for this task. In this paper we demonstrate that it is
+possible to ""compile down"" some of the knowledge gained while fitting models to
+data to obtain better starting points that significantly reduce the search time.
+
+1
+
+DEFORMABLE MODELS FOR DIGIT RECOGNITION
+
+The basic idea in using deformable models for digit recognition is that each digit has
+a model, and a test image is classified by finding the model which is most likely to
+have generated it. The quality of the match between model and test image depends
+on the deformation of the model, the amount of ink that is attributed to noise and
+the distance of the remaining ink from the deformed model.
+?Current address: Department of Computer Science and Applied Mathematics, Aston
+University, Birmingham B4 7ET, UK.
+
+966
+
+Christopher K. T. Williams, Michael D. Revow, Geoffrey E. Hinton
+
+More formally, the two important terms in assessing the fit are the prior probability distribution for the instantiation parameters of a model (which penalizes very
+distorted models), and the imaging model that characterizes the probability distribution over possible images given the instantiated model l . Let I be an image, M
+be a model and z be its instantiation parameters. Then the evidence for model M
+is given by
+P(IIM)
+
+=
+
+J
+
+P(zIM)P(IIM, z)dz
+
+(1)
+
+The first term in the integrand is the prior on the instantiation parameters and the
+second is the imaging model i.e., the likelihood of the data given the instantiated
+model. P(MII) is directly proportional to P(IIM), as we assume a uniform prior
+on each digit.
+Equation 1 is formally correct, but if z has more than a few dimensions the evaluation of this integral is very computationally intensive. However, it is often possible
+to make an approximation based on the assumption that the integrand is strongly
+peaked around a (global) maximum value z*. In this case, the evidence can be approximated by the highest peak of the integrand times a volume factor ~(zII, M),
+which measures the sharpness of the peak 2 .
+P(IIM) ~ P(z*IM)P(Ilz*, M)~(zII, M)
+
+(2)
+
+By Taylor expanding around z* to second order it can be shown that the volume
+factor depends on the determinant of the Hessian of 10gP(z, 11M) . Taking logs
+of equation 2, defining EdeJ as the negative log of P(z*IM), and EJit as the corresponding term for the imaging model, then the aim of the search is to find the
+minimum of E tot = EdeJ + EJit . Of course the total energy will have many local
+minima; for the character recognition task we aim to find the global minimum by
+using a continuation method (see section 1.2).
+1.1
+
+SPLINES, AFFINE TRANSFORMS AND IMAGING MODELS
+
+This section presents a brief overview of our work on using deformable models for
+digit recognition. For a fuller treatment, see Revow, Williams and Hinton (1993) .
+Each digit is modelled by a cubic B-spline whose shape is determined by the positions of the control points in the object-based frame. The models have eight control
+points, except for the one model which has three, and the seven model which has
+five. To generate an ideal example of a digit the control points are positioned at
+their ""home"" locations. Deformed characters are produced by perturbing the control points away from their home locations. The home locations and covariance
+matrix for each model were adapted in order to improve the performance.
+The deformation energy only penalizes shape deformations. Affine transformations,
+i.e., translation, rotation, dilation, elongation, and shear, do not change the underlying shape of an object so we want the deformation energy to be invariant under
+them . We achieve this by giving each model its own ""object-based frame"" and
+computing the deformation energy relative to this frame.
+lThis framework has been used by many authors, e.g. Grenander et al (1991) .
+2The Gaussian approximation has been popularized in the neural net community by
+MacKay (1992) .
+
+Using a Neural Net to Instantiate a Deformable Model
+
+967
+
+The data we used consists of binary-pixel images of segmented handwritten digits.
+The general flavour of a imaging model for this problem is that there should be a
+high probability of inked pixels close to the spline, and lower probabilities further
+away. This can be achieved by spacing out a number of Gaussian ""ink generators""
+uniformly along the contour; we have found that it is also useful to have a uniform
+background noise process over the area of the image that is able to account for
+pixels that occur far away from the generators. The ink generators and background
+process define a mixture model. Using the assumption that each data point is
+generated independently given the instantiated model, P(Ilz*, M) factors into the
+product of the probability density of each black pixel under the mixture model.
+
+1.2
+
+RECOGNIZING ISOLATED DIGITS
+
+For each model, the aim of the search is to find the instantiation parameters that
+minimize E tot . The search starts with zero deformations and an initial guess for
+the affine parameters which scales the model so as to lie over the data with zero
+skew and rotation. A small number of generators with the same large variance are
+placed along the spline, forming a broad, smooth ridge of high ink-probability along
+the spline. We use a search procedure similar to the (iterative) Expectation Maximization (EM) method of fitting an unconstrained mixture of Gaussians, except
+that (i) the Gaussians are constrained to lie on the spline (ii) there is a deformation energy term and (iii) the affine transformation must be recalculated on each
+iteration. During the search the number of generators is gradually increased while
+their variance decreases according to predetermined ""annealing"" schedule3 .
+After fitting all the models to a particular image, we wish to evaluate which of the
+models best ""explains"" the data. The natural measure is the sum of Ejit, Edej
+and the volume factor. However, we have found that performance is improved by
+including four additional terms which are easily obtained from the final fits of the
+model to the image. These are (i) a measure which penalizes matches in which
+there are beads far from any inked pixels (the ""beads in white space"" problem),
+and (ii) the rotation, shear and elongation of the affine transform. It is hard to
+decide in a principled way on the correct weightings for all of these terms in the
+evaluation function. We estimated the weightings from the data by training a
+simple postprocessing neural network. These inputs are connected directly to the
+ten output units. The output units compete using the ""softmax"" function which
+guarantees that they form a probability distribution, summing to one.
+
+2
+
+PREDICTING THE INSTANTIATION PARAMETERS
+
+The search procedure described above is very time consuming. However, given many
+examples of images and the corresponding instantiation parameters obtained by the
+slow method, it is possible to train a neural network to predict the instantiation
+parameters of novel images. These predictions provide better starting points, so the
+search time can be reduced.
+3The schedule starts with 8 beads increasing to 60 beads in six steps, with the variance
+decreasing from 0.04 to 0.0006 (measured in the object frame). The scale is set in the
+object-based frame so that each model is 1 unit high.
+
+968
+
+2.1
+
+Christopher K. I. Williams, Michael D. Revow, Geoffrey E. Hinton
+
+PREVIOUS WORK
+
+Previous work on hypothesizing instantiation parameters can be placed into two
+broad classes, correspondence based search and parameter space search. In correspondence based search, the idea is to extract features from the image and identify
+corresponding features in the model. Using sufficient correspondences the instantiation parameters of the model can be determined. The problem is that simple, easily
+detectable image features have many possible matches, and more complex features
+require more computation and are more difficult to detect. Grimson (1990) shows
+how to search the space of possible correspondences using an interpretation tree.
+An alternative approach, which is used in Hough transform techniques, is to directly work in parameter space. The Hough transform was originally designed for
+the detection of straight lines in images, and has been extended to cover a number
+of geometric shapes, notably conic sections. Ballard (1981) further extended the
+approach to arbitrary shapes with the Generalized Hough Transform . The parameter space for each model is divided into cells (""binned""), and then for each image
+feature a vote is added to each parameter space bin that could have produced that
+feature. After collecting votes from all image features we then search for peaks in
+the parameter space accumulator array, and attempt to verify pose. The Hough
+transform can be viewed as a crude way of approximating the logarithm of the
+posterior distribution P(zII, M) (e.g. Hunt et al , 1988).
+However, these two techniques have only been used on problems involving rigid
+models, and are not readily applicable to the digit recognition problem. For the
+Hough space method, binning and vote collection is impractical in the high dimensional parameter space, and for the correspondence based approach there is a
+lack of easily identified and highly discriminative features. The strengths of these
+two techniques, namely their ability to deal with arbitrary scalings, rotations and
+translations of the data, and their tolerance of extraneous features, are not really
+required for a task where the input data is fairly well segmented and normalized.
+Our approach is to use a neural network to predict the instantiation parameters for
+each model, given an input image. Zemel and Hinton (1991) used a similar method
+with simple 2-d objects, and more recently, Beymer et al (1993) have constructed
+a network which maps from a face image to a 2-d parameter space spanning head
+rotations and a smile/no-smile dimension. However, their method does not directly
+map from images to instantiation parameters; they use a computer vision correspondence algorithm to determine the displacement field of pixels in a novel image
+relative to a reference image, and then use this field as the input to the network.
+This step limits the use of the approach to images that are sufficiently similar so
+that the correspondence algorithm functions well.
+
+2.2
+
+INSTANTIATING DIGIT MODELS USING NEURAL
+NETWORKS
+The network which is used to predict the model instantiation parameters is shown
+in figure 1. The (unthinned) binary images are normalized to give 16 x 16 8-bit
+greyscale images which are fed into the neural network. The network uses a standard
+three-layer architecture; each hidden unit computes a weighted sum of its inputs,
+and then feeds this value through a sigmoidal nonlinearity u(x) = 1/(1 + e- X ). The
+
+Using a Neural Net to Instantiate a Deformable Model
+
+cps for 0 model
+
+cps for I model
+
+969
+
+cps for 9 model
+
+o
+
+Figure 1: The prediction network architecture. ""cps"" stands for control points.
+output values are a weighted linear combination of the hidden unit activities plus
+output biases. The targets are the locations of the control points in the normalized
+image, found from fitting models as described in section 1.2.
+The network was trained with backpropagation to minimize the squared error, using
+900 training images and 200 validation images of each digit drawn from the br
+set of the CEDAR CDROM 1 database of Cities, States, ZIP Codes, Digits, and
+Alphabetic Characters4 . Two test sets were used; one was obtained from data in the
+br dataset, and the other was the (official) bs test set. After some experimentation
+we chose a network with twenty hidden units, which means that the net has over
+8,000 weights . With such a large number of weights it is important to regularize the
+solution obtained by the network by using a complexity penalty; we used a weight
+and optimized A on a validation set. Targets were only set for the
+penalty AL: j
+correct digit at the output layer; nothing was backpropagated from the other output
+units. The net took 440 epochs to train using the default conjugate gradient search
+method in the Xerion neural network simulator 5 . It would be possible to construct
+ten separate networks to carry out the same task as the net described above, but
+this would intensify the danger of overfitting, which is reduced by giving the network
+a common pool of hidden units which it can use as it decides appropriate.
+
+wJ
+
+For comparison with the prediction net described above, a trivial network which
+just consisted of output biases was trained; this network simply learns the average
+value of the control point locations. On a validation set the squared error of the
+prediction net was over three times smaller than the trivial net. Although this is
+encouraging, the acid test is to compare the performance of elastic models settled
+from the predicted positions using a shortened annealing schedule; if the predictions
+are good, then only a short amount of settling will be required.
+4Made available by the Unites States Postal Service Office of Advanced Technology.
+5Xerion was designed and implemented by Drew van Camp, Tony Plate and Geoffrey
+Hinton at the University of Toronto.
+
+970
+
+Christopher K. I. Williams, Michael D. Revow, Geoffrey E. Hinton
+
+Figure 2: A comparision of the initial instantiations due to the prediction net (top row)
+and the trivial net (bottom row) on an image of a 2. Notice that for the two model the
+prediction net is much closer to the data. The other digit models mayor may not be greatly
+affected by the input data; for example, the predictions from both nets seem essentially
+the same for the zero, but for the seven the prediction net puts the model nearer to the
+data.
+The feedforward net predicts the position of the control points in the normalized
+image. By inverting the normalization process, the positions of the control points
+in the un-normalized image are determined. The model deformation and affine
+transformation corresponding to these image control point locations can then be
+determined by running a part of one iteration of the search procedure. Experiments
+were then conducted with a number of shortened annealing schedules; for each one,
+data obtained from settling on a part of the training data was used to train the
+postprocessing net. The performance was then evaluated on the br test set.
+The full annealing schedule has six stages. The shortened annealing schedules are:
+1. No settling at all
+2. Two iterations at the final variance of 0.0006
+3. One iteration at 0.0025 and two at 0.0006
+4. The full annealing schedule (for comparison)
+The results on the br test set are shown in table 1. The general trends are that the
+performance obtained using the prediction net is consistently better than the trivial
+net, and that longer annealing schedules lead to better performance. A comparison
+of schedules 3 and 4 in table 1 indicates that the performance of the prediction
+net/schedule 3 combination is similar to (or slightly better than) that obtained
+with the full annealing schedule, and is more than a factor of two faster. The
+results with the full schedule are almost identical to the results obtained with the
+default ""box"" initialization described in section 1.2. Figure 2 compares the outputs
+of the prediction and trivial nets on a particular example. Judging from the weight
+
+Using a Neural Net to Instantiate a Deformable Model
+
+Schedule number
+
+Trivial net
+
+Prediction net
+
+1
+2
+3
+4
+
+427
+329
+160
+40
+
+200
+58
+32
+36
+
+971
+
+Average time required
+to settle one model (s)
+0.12
+0.25
+0.49
+1.11
+
+Table 1: Errors on the internal test set of 2000 examples for different annealing schedules.
+The timing trials were carried out on a R-4400 machine.
+
+vectors and activity patterns of the hidden units, it does not seem that some of the
+units are specialized for a particular digit class.
+A run on the bs test set using schedule 3 gave an error rate of 4.76 % (129 errors),
+which is very similar to the 125 errors obtained using the full annealing schedule
+and the box initialization. A comparison of the errors made on the two runs shows
+that only 67 out of the 129 errors were common to the two sets. This suggests that
+it would be very sensible to reject cases where the two methods do not agree.
+
+3
+
+DISCUSSION
+
+The prediction net used above can be viewed as an interpolation scheme in the
+control point position space of each digit z(I) = Zo + 2:i ai(I)zi, where z(I) is
+the predicted position in the control point space, Zo is the contribution due to the
+biases, ai is the activity of hidden unit i and Zi is its location in the control point
+position space (learned from the data) . If there are more hidden units than output
+dimensions, then for any particular image there are an infinite number of ways to
+make this equation hold exactly. However, the network will tend to find solutions
+so that the ai(I)'s will vary smoothly as the image is perturbed.
+The nets described above output just one set of instantiation parameters for a
+given model. However, it may be preferable to be able to represent a number of
+guesses about model instantiation parameters; one way of doing this is to train a
+network that has multiple sets of output parameters, as in the ""mixture of experts""
+architecture of Jacobs et aI (1991). The outputs can be interpreted as a mixture
+distribution in the control point position space, conditioned on the input image.
+Another approach to providing more information about the posterior distribution
+is described in (Hinton, Williams and Revow, 1992b), where P(zlI) is approximated
+using a fixed set of basis functions whose weighting depends on the input image I.
+The strategies descriped above directly predict the instantiation parameters in parameter space. It is also possible to use neural networks to hypothesize correspondences, i.e. to predict an inked pixel's position on the spline given a local window
+of context in the image. With sufficient matches it is then possible to compute
+the instantiation parameters of the model. We have conducted some preliminary
+experiments with this method (described in Williams, 1994), which indicate that
+good performance can be achieved for the correspondence prediction task.
+
+972
+
+Christopher K. I. Williams, Michael D. Revow, Geoffrey E. Hinton
+
+We have shown that the we can obtain significant speedup using the prediction net.
+The schemes outlined above which allow multimodal predictions in instantiation
+parameter space may improve performance and deserve further investigation. We
+are also interested in improving the performance of the prediction net, for example
+by outputting a confidence measure which could be used to adjust the length of
+the elastic models' search appropriately. We believe that using machine learning
+techniques like neural networks to help reduce the amount of search required to fit
+complex models to data may be useful for many other problems.
+Acknowledgements
+This research was funded by Apple and by the Ontario Information Technology Research
+Centre. We thank Allan Jepson, Richard Durbin, Rich Zemel, Peter Dayan, Rob Tibshirani
+and Yann Le Cun for helpful discussions. Geoffrey Hinton is the Noranda Fellow of the
+Canadian Institute for Advanced Research.
+
+References
+Ballard, D. H. (1981). Generalizing the Hough transfrom to detect arbitrary shapes.
+Pattern Recognition, 13(2):111-122.
+Beymer, D., Shashua, A., and Poggio, T . (1993). Example Based Image Analysis and
+Synthesis. AI Memo 1431, AI Laboratory, MIT.
+Grenander, U., Chow, Y., and Keenan, D. M. (1991). Hands: A pattern theoretic study of
+biological shapes. Springer-Verlag.
+Grimson, W. E. 1. (1990) . Object recognition by computer. MIT Press, Cambridge, MA.
+Hinton, G. E., Williams, C. K. 1., and Revow, M. D. (1992a). Adaptive elastic models
+for hand-printed character recognition. In Moody, J. E., Hanson, S. J., and Lippmann, R. P., editors, Advances in Neural Information Processing Systems 4. Morgan
+Kauffmann.
+Hinton, G. E., Williams, C. K. 1., and Revow, M. D. (1992b). Combinining two methods
+of recognizing hand-printed digits. In Aleksander, 1. and Taylor, J., editors, Artificial
+Neural Networks 2. Elsevier Science Publishers.
+Hunt, D. J., Nolte, L. W., and Ruedger, W . H. (1988) . Performance of the Hough Transform and its Relationship to Statistical Signal Detection Theory. Computer Vision,
+Graphics and Image Processing, 43:221- 238.
+Jacobs, R. A., Jordan, M. 1., Nowlan, S. J., and Hinton, G. E. (1991). Adaptive mixtures
+of local experts. Neural Computation, 3(1).
+MacKay, D. J. C. (1992). Bayesian Interpolation. Neural Computation, 4(3):415-447.
+Revow, M. D., Williams, C. K. 1., and Hinton, G. E. (1993) . Using mixtures of deformable
+models to capture variations in hand printed digits. In Srihari, S., editor, Proceedings
+of the Third International Workshop on Frontiers in Handwriting Recognition, pages
+142-152, Buffalo, New York, USA.
+Williams, C. K. 1. (1994) . Combining deformable models and neural networks for handprinted digit recognition. PhD thesis, Dept. of Computer Science, University of
+Toronto.
+Zemel, R . S. and Hinton, G. E. (1991) . Discovering viewpoint-invariant relationships that
+characterize objects. In Lippmann, R. P., Moody, J. E., and Touretzky, D. S., editors, Advances In Neural Information Processing Systems 3, pages 299-305. Morgan
+Kaufmann Publishers.
+
+"
